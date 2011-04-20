@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PublishUrlHistory>ftp://samplusplushosting.com/|ftp://samplusplus.com/|ftp://samplusplushosting.com/jangodesktop.com/install/|ftp://samplusplushosting.com/jangodesktop/|samplusplushosting.com/</PublishUrlHistory>
+    <InstallUrlHistory>http://www.jangodesktop.com/install/|http://samuelhaddad.com/jangodesktop/|http://samuelhaddad.com/|http://samuelhaddad.com/jangodesktopinstall/</InstallUrlHistory>
+    <SupportUrlHistory>http://jangodesktop.com|http://samuelhaddad.com/software-projects/jango-desktop</SupportUrlHistory>
+    <UpdateUrlHistory>http://www.jangodesktop.com/install/|http://samuelhaddad.com/jangodesktop/|http://samuelhaddad.com/jangodesktopinstall/</UpdateUrlHistory>
+    <BootstrapperUrlHistory>
+    </BootstrapperUrlHistory>
+    <FallbackCulture>en-US</FallbackCulture>
+    <VerifyUploadedFiles>true</VerifyUploadedFiles>
+    <EnableSecurityDebugging>false</EnableSecurityDebugging>
+    <ErrorReportUrlHistory />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <StartAction>Project</StartAction>
+  </PropertyGroup>
+</Project>
