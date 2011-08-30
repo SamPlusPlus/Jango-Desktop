@@ -15,12 +15,12 @@
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <ApplicationIcon>jango.ico</ApplicationIcon>
     <TargetZone>Custom</TargetZone>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
     <ManifestCertificateThumbprint>0A3C5CF9BC0816EF1C3DA010CD59981D40D0312F</ManifestCertificateThumbprint>
     <ManifestKeyFile>Jango Desktop.pfx</ManifestKeyFile>
     <GenerateManifests>true</GenerateManifests>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
     <AssemblyOriginatorKeyFile>Jango Desktop.pfx</AssemblyOriginatorKeyFile>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
