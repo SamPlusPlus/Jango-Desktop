@@ -2,13 +2,13 @@
 
 [Header,2]
 0,Version,2,0
-1,AppDir,C:\Users\Sam\Desktop\JangoDesktop_GITHub\Jango Desktop\bin\Release\xulrunner
+1,AppDir,C:\Users\Ricardo\jangoDesktopSrc\Jango Desktop\Resources\xulrunner
 
 [Directories,1]
-0,C:\Users\Sam\Desktop\JangoDesktop_GITHub\Jango Desktop\bin\Release\xulrunner\components
+0,C:\Users\Ricardo\jangoDesktopSrc\Jango Desktop\Resources\xulrunner\components
 
 [Files,1]
-0,XULRunner.xpt,0,362449,1303288430000
+0,XULRunner.xpt,0,362449,1303284830000
 
 [ArchiveItems,0]
 
