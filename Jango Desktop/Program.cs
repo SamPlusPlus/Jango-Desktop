@@ -18,7 +18,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Threading;
 
@@ -39,6 +38,7 @@ namespace Jango_Desktop
                  {
                      Application.EnableVisualStyles();
                      Application.SetCompatibleTextRenderingDefault(false);
+                     Skybound.Gecko.Xpcom.Initialize("xulrunner");
                      Application.Run(new JangoDesktop());
                  }
              }

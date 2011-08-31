@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(JangoDesktop));
-            this.JangoBrowser = new System.Windows.Forms.WebBrowser();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.JangoContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.playPauseSongToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,21 +47,9 @@
             this.aboutJangoDesktopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.songCheckerTimer = new System.Windows.Forms.Timer(this.components);
+            this.JangoBrowser = new Skybound.Gecko.GeckoWebBrowser();
             this.JangoContextMenu.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // JangoBrowser
-            // 
-            this.JangoBrowser.CausesValidation = false;
-            this.JangoBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.JangoBrowser.Location = new System.Drawing.Point(0, 0);
-            this.JangoBrowser.MinimumSize = new System.Drawing.Size(20, 20);
-            this.JangoBrowser.Name = "JangoBrowser";
-            this.JangoBrowser.ScriptErrorsSuppressed = true;
-            this.JangoBrowser.Size = new System.Drawing.Size(997, 284);
-            this.JangoBrowser.TabIndex = 0;
-            this.JangoBrowser.Url = new System.Uri("http://jango.com", System.UriKind.Absolute);
-            this.JangoBrowser.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.WebBrowser_DocumentCompleted);
             // 
             // notifyIcon1
             // 
@@ -128,7 +115,7 @@
             // 
             this.greatToolStripMenuItem.Image = global::Jango_Desktop.Properties.Resources.emoticon_happy;
             this.greatToolStripMenuItem.Name = "greatToolStripMenuItem";
-            this.greatToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.greatToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
             this.greatToolStripMenuItem.Text = "Love";
             this.greatToolStripMenuItem.Click += new System.EventHandler(this.greatToolStripMenuItem_Click);
             // 
@@ -136,7 +123,7 @@
             // 
             this.badToolStripMenuItem.Image = global::Jango_Desktop.Properties.Resources.emoticon_unhappy;
             this.badToolStripMenuItem.Name = "badToolStripMenuItem";
-            this.badToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.badToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
             this.badToolStripMenuItem.Text = "Hate";
             this.badToolStripMenuItem.Click += new System.EventHandler(this.badToolStripMenuItem_Click);
             // 
@@ -205,6 +192,14 @@
             this.songCheckerTimer.Interval = 1000;
             this.songCheckerTimer.Tick += new System.EventHandler(this.songCheckerTimer_Tick);
             // 
+            // JangoBrowser
+            // 
+            this.JangoBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.JangoBrowser.Location = new System.Drawing.Point(0, 0);
+            this.JangoBrowser.Name = "JangoBrowser";
+            this.JangoBrowser.Size = new System.Drawing.Size(997, 284);
+            this.JangoBrowser.TabIndex = 1;
+            // 
             // JangoDesktop
             // 
             this.ClientSize = new System.Drawing.Size(997, 284);
@@ -222,7 +217,6 @@
 
         #endregion
 
-        private System.Windows.Forms.WebBrowser JangoBrowser;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.Timer songCheckerTimer;
         private System.Windows.Forms.ContextMenuStrip JangoContextMenu;
@@ -240,6 +234,7 @@
         private System.Windows.Forms.ToolStripMenuItem SettingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem CopyToClipBoardToolStripMenuItem1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private Skybound.Gecko.GeckoWebBrowser JangoBrowser;
     }
 }
 

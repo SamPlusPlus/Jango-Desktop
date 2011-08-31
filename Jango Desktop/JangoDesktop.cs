@@ -43,7 +43,7 @@ namespace Jango_Desktop
         UserActivityHook actHook;
         String tempSong = "";
         String timer, artist, song;
-        HtmlDocument hDoc;
+        Skybound.Gecko.GeckoDocument hDoc;
         public bool loaded = true;
         public bool cleared = false;
 
@@ -297,13 +297,13 @@ namespace Jango_Desktop
             try
             {
                 hDoc = JangoBrowser.Document;
-                hDoc = hDoc.Window.Frames[1].Document;
+                //hDoc = hDoc.Frames[1].; //You have to find a way to get into the frame, i didnt realize it. I dont know if innerHtml=innerText.
                 //If a song changes
-                timer = hDoc.GetElementById("timer").InnerText;
+                timer = hDoc.GetElementById("timer").InnerHtml;
                 //The current song has changed beginning of a song
-                if (tempSong != hDoc.GetElementById("current-song").InnerText)
+                if (tempSong != hDoc.GetElementById("current-song").InnerHtml)
                 {
-                    tempSong = hDoc.GetElementById("current-song").InnerText;
+                    tempSong = hDoc.GetElementById("current-song").InnerHtml;
                     parseSong(Settings.Default.DisplaySongBalloon);
                 }
 
@@ -321,9 +321,9 @@ namespace Jango_Desktop
         {
             try
             {
-                timer = hDoc.GetElementById("timer").InnerText;
-                artist = hDoc.GetElementById("player_current_artist").InnerText;
-                song = hDoc.GetElementById("current-song").InnerText;
+                timer = hDoc.GetElementById("timer").InnerHtml;
+                artist = hDoc.GetElementById("player_current_artist").InnerHtml;
+                song = hDoc.GetElementById("current-song").InnerHtml;
                 if (displayBalloonTip)
                 {
                     ShowBalloonTip(artist, song + " " + timer);
