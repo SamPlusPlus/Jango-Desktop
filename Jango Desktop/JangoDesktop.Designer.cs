@@ -197,12 +197,12 @@
             this.JangoBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
             this.JangoBrowser.Location = new System.Drawing.Point(0, 0);
             this.JangoBrowser.Name = "JangoBrowser";
-            this.JangoBrowser.Size = new System.Drawing.Size(997, 284);
+            this.JangoBrowser.Size = new System.Drawing.Size(1003, 326);
             this.JangoBrowser.TabIndex = 1;
             // 
             // JangoDesktop
             // 
-            this.ClientSize = new System.Drawing.Size(997, 284);
+            this.ClientSize = new System.Drawing.Size(1003, 326);
             this.Controls.Add(this.JangoBrowser);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "JangoDesktop";
