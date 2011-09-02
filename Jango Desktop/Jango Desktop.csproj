@@ -44,7 +44,7 @@
     <UpdateIntervalUnits>Weeks</UpdateIntervalUnits>
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
+    <MapFileExtensions>false</MapFileExtensions>
     <InstallUrl>http://www.jangodesktop.com/install/</InstallUrl>
     <UpdateUrl>http://www.jangodesktop.com/install/</UpdateUrl>
     <SupportUrl>http://jangodesktop.com</SupportUrl>
@@ -54,7 +54,7 @@
     <MinimumRequiredVersion>3.0.4.1</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
-    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationRevision>2</ApplicationRevision>
     <ApplicationVersion>3.0.4.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -104,6 +104,7 @@
     <ErrorReport>prompt</ErrorReport>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
+  <PropertyGroup />
   <PropertyGroup>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
@@ -188,64 +189,63 @@
     </Compile>
     <Compile Include="Utilities\UserActivityHook.cs" />
     <Compile Include="Utilities\AESEncryption.cs" />
-    <None Include="xulrunner\chrome\classic.manifest" />
-    <None Include="xulrunner\chrome\comm.manifest" />
-    <None Include="xulrunner\chrome\en-US.manifest" />
-    <None Include="xulrunner\chrome\geckofx.manifest" />
-    <None Include="xulrunner\chrome\pippki.manifest" />
-    <None Include="xulrunner\chrome\toolkit-bak.manifest" />
-    <None Include="xulrunner\chrome\toolkit.manifest" />
-    <None Include="xulrunner\chrome\unknownContentType.xul" />
-    <None Include="xulrunner\components\components.list" />
-    <None Include="xulrunner\components\compreg.dat" />
-    <None Include="xulrunner\components\xpti.dat" />
-    <None Include="xulrunner\components\XULRunner.xpt" />
-    <None Include="xulrunner\crashreporter.ini" />
-    <None Include="xulrunner\defaults\profile\localstore.rdf" />
+    <Content Include="xulrunner\chrome\classic.manifest" />
+    <Content Include="xulrunner\chrome\comm.manifest" />
+    <Content Include="xulrunner\chrome\en-US.manifest" />
+    <Content Include="xulrunner\chrome\geckofx.manifest" />
+    <Content Include="xulrunner\chrome\pippki.manifest" />
+    <Content Include="xulrunner\chrome\toolkit-bak.manifest" />
+    <Content Include="xulrunner\chrome\toolkit.manifest" />
+    <Content Include="xulrunner\chrome\unknownContentType.xul" />
+    <Content Include="xulrunner\components\components.list" />
+    <Content Include="xulrunner\components\compreg.dat" />
+    <Content Include="xulrunner\components\XULRunner.xpt" />
+    <Content Include="xulrunner\crashreporter.ini" />
+    <Content Include="xulrunner\defaults\profile\localstore.rdf" />
     <None Include="xulrunner\defaults\profile\US\localstore.rdf" />
-    <None Include="xulrunner\dependentlibs.list" />
-    <None Include="xulrunner\dictionaries\en-US.aff" />
-    <None Include="xulrunner\dictionaries\en-US.dic" />
-    <None Include="xulrunner\freebl3.chk" />
-    <None Include="xulrunner\LICENSE" />
-    <None Include="xulrunner\modules\CertUtils.jsm" />
-    <None Include="xulrunner\modules\CrashSubmit.jsm" />
-    <None Include="xulrunner\modules\ctypes.jsm" />
-    <None Include="xulrunner\modules\DownloadLastDir.jsm" />
-    <None Include="xulrunner\modules\DownloadUtils.jsm" />
-    <None Include="xulrunner\modules\FileUtils.jsm" />
-    <None Include="xulrunner\modules\ISO8601DateUtils.jsm" />
-    <None Include="xulrunner\modules\LightweightThemeConsumer.jsm" />
-    <None Include="xulrunner\modules\LightweightThemeManager.jsm" />
-    <None Include="xulrunner\modules\NetUtil.jsm" />
-    <None Include="xulrunner\modules\PlacesDBUtils.jsm" />
-    <None Include="xulrunner\modules\PluralForm.jsm" />
-    <None Include="xulrunner\modules\WindowDraggingUtils.jsm" />
-    <None Include="xulrunner\modules\XPCOMUtils.jsm" />
-    <None Include="xulrunner\nspr-config" />
-    <None Include="xulrunner\nssdbm3.chk" />
-    <None Include="xulrunner\platform.ini" />
-    <None Include="xulrunner\res\charsetalias.properties" />
-    <None Include="xulrunner\res\charsetData.properties" />
-    <None Include="xulrunner\res\dtd\mathml.dtd" />
-    <None Include="xulrunner\res\dtd\xhtml11.dtd" />
-    <None Include="xulrunner\res\entityTables\html40Latin1.properties" />
-    <None Include="xulrunner\res\entityTables\html40Special.properties" />
-    <None Include="xulrunner\res\entityTables\html40Symbols.properties" />
-    <None Include="xulrunner\res\entityTables\htmlEntityVersions.properties" />
-    <None Include="xulrunner\res\entityTables\mathml20.properties" />
-    <None Include="xulrunner\res\entityTables\transliterate.properties" />
-    <None Include="xulrunner\res\fonts\mathfont.properties" />
-    <None Include="xulrunner\res\fonts\mathfontStandardSymbolsL.properties" />
-    <None Include="xulrunner\res\fonts\mathfontSTIXNonUnicode.properties" />
-    <None Include="xulrunner\res\fonts\mathfontSTIXSize1.properties" />
-    <None Include="xulrunner\res\fonts\mathfontSymbol.properties" />
-    <None Include="xulrunner\res\fonts\mathfontUnicode.properties" />
-    <None Include="xulrunner\res\langGroups.properties" />
-    <None Include="xulrunner\res\language.properties" />
-    <None Include="xulrunner\res\wincharset.properties" />
-    <None Include="xulrunner\softokn3.chk" />
-    <None Include="xulrunner\update.locale" />
+    <Content Include="xulrunner\dependentlibs.list" />
+    <Content Include="xulrunner\dictionaries\en-US.aff" />
+    <Content Include="xulrunner\dictionaries\en-US.dic" />
+    <Content Include="xulrunner\freebl3.chk" />
+    <Content Include="xulrunner\LICENSE" />
+    <Content Include="xulrunner\modules\CertUtils.jsm" />
+    <Content Include="xulrunner\modules\CrashSubmit.jsm" />
+    <Content Include="xulrunner\modules\ctypes.jsm" />
+    <Content Include="xulrunner\modules\DownloadLastDir.jsm" />
+    <Content Include="xulrunner\modules\DownloadUtils.jsm" />
+    <Content Include="xulrunner\modules\FileUtils.jsm" />
+    <Content Include="xulrunner\modules\ISO8601DateUtils.jsm" />
+    <Content Include="xulrunner\modules\LightweightThemeConsumer.jsm" />
+    <Content Include="xulrunner\modules\LightweightThemeManager.jsm" />
+    <Content Include="xulrunner\modules\NetUtil.jsm" />
+    <Content Include="xulrunner\modules\PlacesDBUtils.jsm" />
+    <Content Include="xulrunner\modules\PluralForm.jsm" />
+    <Content Include="xulrunner\modules\WindowDraggingUtils.jsm" />
+    <Content Include="xulrunner\modules\XPCOMUtils.jsm" />
+    <Content Include="xulrunner\nspr-config" />
+    <Content Include="xulrunner\nssdbm3.chk" />
+    <Content Include="xulrunner\platform.ini" />
+    <Content Include="xulrunner\res\charsetalias.properties" />
+    <Content Include="xulrunner\res\charsetData.properties" />
+    <Content Include="xulrunner\res\dtd\mathml.dtd" />
+    <Content Include="xulrunner\res\dtd\xhtml11.dtd" />
+    <Content Include="xulrunner\res\entityTables\html40Latin1.properties" />
+    <Content Include="xulrunner\res\entityTables\html40Special.properties" />
+    <Content Include="xulrunner\res\entityTables\html40Symbols.properties" />
+    <Content Include="xulrunner\res\entityTables\htmlEntityVersions.properties" />
+    <Content Include="xulrunner\res\entityTables\mathml20.properties" />
+    <Content Include="xulrunner\res\entityTables\transliterate.properties" />
+    <Content Include="xulrunner\res\fonts\mathfont.properties" />
+    <Content Include="xulrunner\res\fonts\mathfontStandardSymbolsL.properties" />
+    <Content Include="xulrunner\res\fonts\mathfontSTIXNonUnicode.properties" />
+    <Content Include="xulrunner\res\fonts\mathfontSTIXSize1.properties" />
+    <Content Include="xulrunner\res\fonts\mathfontSymbol.properties" />
+    <Content Include="xulrunner\res\fonts\mathfontUnicode.properties" />
+    <Content Include="xulrunner\res\langGroups.properties" />
+    <Content Include="xulrunner\res\language.properties" />
+    <Content Include="xulrunner\res\wincharset.properties" />
+    <Content Include="xulrunner\softokn3.chk" />
+    <Content Include="xulrunner\update.locale" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
