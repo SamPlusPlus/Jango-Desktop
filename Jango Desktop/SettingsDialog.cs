@@ -45,6 +45,7 @@ namespace Jango_Desktop
             displaySongTips.Checked = Settings.Default.DisplaySongBalloon;
             displaySongTipsAtEndOfSongCheckBox.Checked = Settings.Default.DisplaySongBalloonAtEndOfSong;
             displaySongRating.Checked = Settings.Default.DisplaySongRating;
+            startMinimized.Checked = Settings.Default.StartMinimized;
             AutoLoginCheckbox.Checked = Settings.Default.AutoLogin;
             jangoUsernameTxtBox.Text = AESEncryption.Decrypt(Settings.Default.JangoUsername, Environment.MachineName + Environment.ProcessorCount, Environment.UserName, "SHA1", Environment.ProcessorCount, "16CHARSLONG12345", 256);
             jangoPasswordTxtBox.Text = AESEncryption.Decrypt(Settings.Default.JangoPassword, Environment.MachineName + Environment.ProcessorCount, Environment.UserName, "SHA1", Environment.ProcessorCount, "16CHARSLONG12345", 256);
@@ -63,6 +64,7 @@ namespace Jango_Desktop
             Settings.Default.DisplaySongBalloon = displaySongTips.Checked;
             Settings.Default.DisplaySongBalloonAtEndOfSong = displaySongTipsAtEndOfSongCheckBox.Checked;
             Settings.Default.DisplaySongRating = displaySongRating.Checked;
+            Settings.Default.StartMinimized = startMinimized.Checked;
 
             //Store Password Encrypted
             //Example    string FinalValue=AESEncryption.Encrypt("My Text","My Password","Salt or Password2","SHA1",2,"16CHARSLONG12345",256);
