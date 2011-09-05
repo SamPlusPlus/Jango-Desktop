@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(JangoDesktop));
-            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this._notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.JangoContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.playPauseSongToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nextTrackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,18 +46,17 @@
             this.hideJangoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutJangoDesktopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.songCheckerTimer = new System.Windows.Forms.Timer(this.components);
             this.JangoBrowser = new Skybound.Gecko.GeckoWebBrowser();
             this.JangoContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
-            // notifyIcon1
+            // _notifyIcon
             // 
-            this.notifyIcon1.ContextMenuStrip = this.JangoContextMenu;
-            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
-            this.notifyIcon1.Text = "Jango Desktop";
-            this.notifyIcon1.Visible = true;
-            this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
+            this._notifyIcon.ContextMenuStrip = this.JangoContextMenu;
+            this._notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("_notifyIcon.Icon")));
+            this._notifyIcon.Text = "Jango Desktop";
+            this._notifyIcon.Visible = true;
+            this._notifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.NotifyIcon_MouseDoubleClick);
             // 
             // JangoContextMenu
             // 
@@ -75,7 +74,7 @@
             this.aboutJangoDesktopToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.JangoContextMenu.Name = "JangoContextMenu";
-            this.JangoContextMenu.Size = new System.Drawing.Size(188, 258);
+            this.JangoContextMenu.Size = new System.Drawing.Size(188, 236);
             // 
             // playPauseSongToolStripMenuItem
             // 
@@ -83,7 +82,7 @@
             this.playPauseSongToolStripMenuItem.Name = "playPauseSongToolStripMenuItem";
             this.playPauseSongToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.playPauseSongToolStripMenuItem.Text = "Play/Pause  Song";
-            this.playPauseSongToolStripMenuItem.Click += new System.EventHandler(this.playPauseSongToolStripMenuItem_Click);
+            this.playPauseSongToolStripMenuItem.Click += new System.EventHandler(this.PlayPauseSongToolStripMenuItem_Click);
             // 
             // nextTrackToolStripMenuItem
             // 
@@ -91,7 +90,7 @@
             this.nextTrackToolStripMenuItem.Name = "nextTrackToolStripMenuItem";
             this.nextTrackToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.nextTrackToolStripMenuItem.Text = "Next Track";
-            this.nextTrackToolStripMenuItem.Click += new System.EventHandler(this.nextTrackToolStripMenuItem_Click);
+            this.nextTrackToolStripMenuItem.Click += new System.EventHandler(this.NextTrackToolStripMenuItem_Click);
             // 
             // displayCurrentSongToolStripMenuItem
             // 
@@ -99,7 +98,7 @@
             this.displayCurrentSongToolStripMenuItem.Name = "displayCurrentSongToolStripMenuItem";
             this.displayCurrentSongToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.displayCurrentSongToolStripMenuItem.Text = "Display Current Song";
-            this.displayCurrentSongToolStripMenuItem.Click += new System.EventHandler(this.displayCurrentSongToolStripMenuItem_Click);
+            this.displayCurrentSongToolStripMenuItem.Click += new System.EventHandler(this.DisplayCurrentSongToolStripMenuItem_Click);
             // 
             // rateSongToolStripMenuItem
             // 
@@ -117,7 +116,7 @@
             this.greatToolStripMenuItem.Name = "greatToolStripMenuItem";
             this.greatToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
             this.greatToolStripMenuItem.Text = "Love";
-            this.greatToolStripMenuItem.Click += new System.EventHandler(this.greatToolStripMenuItem_Click);
+            this.greatToolStripMenuItem.Click += new System.EventHandler(this.GreatToolStripMenuItem_Click);
             // 
             // badToolStripMenuItem
             // 
@@ -125,7 +124,7 @@
             this.badToolStripMenuItem.Name = "badToolStripMenuItem";
             this.badToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
             this.badToolStripMenuItem.Text = "Hate";
-            this.badToolStripMenuItem.Click += new System.EventHandler(this.badToolStripMenuItem_Click);
+            this.badToolStripMenuItem.Click += new System.EventHandler(this.BadToolStripMenuItem_Click);
             // 
             // showLyricsToolStripMenuItem
             // 
@@ -133,7 +132,7 @@
             this.showLyricsToolStripMenuItem.Name = "showLyricsToolStripMenuItem";
             this.showLyricsToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.showLyricsToolStripMenuItem.Text = "Show Lyrics ";
-            this.showLyricsToolStripMenuItem.Click += new System.EventHandler(this.showLyricsToolStripMenuItem_Click);
+            this.showLyricsToolStripMenuItem.Click += new System.EventHandler(this.ShowLyricsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -167,8 +166,8 @@
             this.hideJangoToolStripMenuItem.Image = global::Jango_Desktop.Properties.Resources.eye;
             this.hideJangoToolStripMenuItem.Name = "hideJangoToolStripMenuItem";
             this.hideJangoToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
-            this.hideJangoToolStripMenuItem.Text = "Hide Jango Desktop ";
-            this.hideJangoToolStripMenuItem.Click += new System.EventHandler(this.hideJangoToolStripMenuItem_Click);
+            this.hideJangoToolStripMenuItem.Text = "Show Jango Desktop ";
+            this.hideJangoToolStripMenuItem.Click += new System.EventHandler(this.HideJangoToolStripMenuItem_Click);
             // 
             // aboutJangoDesktopToolStripMenuItem
             // 
@@ -184,13 +183,7 @@
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
-            // 
-            // songCheckerTimer
-            // 
-            this.songCheckerTimer.Enabled = true;
-            this.songCheckerTimer.Interval = 1000;
-            this.songCheckerTimer.Tick += new System.EventHandler(this.songCheckerTimer_Tick);
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
             // JangoBrowser
             // 
@@ -199,6 +192,7 @@
             this.JangoBrowser.Name = "JangoBrowser";
             this.JangoBrowser.Size = new System.Drawing.Size(1003, 326);
             this.JangoBrowser.TabIndex = 1;
+            this.JangoBrowser.DocumentTitleChanged += new System.EventHandler(this.JangoBrowser_DocumentTitleChanged);
             // 
             // JangoDesktop
             // 
@@ -208,17 +202,17 @@
             this.Name = "JangoDesktop";
             this.ShowInTaskbar = false;
             this.Text = "Jango Desktop";
-            this.Load += new System.EventHandler(this.JangoDesktop_Load);
+            this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
+            this.Load += new System.EventHandler(this.JangoDesktopLoad);
             this.Resize += new System.EventHandler(this.JangoDesktop_Resize);
             this.JangoContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
-
+            this.Visible = false; 
         }
 
         #endregion
 
-        private System.Windows.Forms.NotifyIcon notifyIcon1;
-        private System.Windows.Forms.Timer songCheckerTimer;
+        private System.Windows.Forms.NotifyIcon _notifyIcon;
         private System.Windows.Forms.ContextMenuStrip JangoContextMenu;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutJangoDesktopToolStripMenuItem;

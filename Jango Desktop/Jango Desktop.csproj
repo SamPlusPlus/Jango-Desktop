@@ -54,7 +54,7 @@
     <MinimumRequiredVersion>3.0.4.1</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
-    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationRevision>5</ApplicationRevision>
     <ApplicationVersion>3.0.4.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -187,6 +187,7 @@
     <Compile Include="SettingsDialog.Designer.cs">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Track.cs" />
     <Compile Include="Utilities\UserActivityHook.cs" />
     <Compile Include="Utilities\AESEncryption.cs" />
     <Content Include="xulrunner\chrome\classic.manifest" />
