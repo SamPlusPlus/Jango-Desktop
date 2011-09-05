@@ -42,8 +42,6 @@
             this.displaySongTips = new System.Windows.Forms.CheckBox();
             this.KeyboardTab = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.DisplaySongSet = new System.Windows.Forms.LinkLabel();
-            this.RateDownSet = new System.Windows.Forms.LinkLabel();
             this.RateUpSet = new System.Windows.Forms.LinkLabel();
             this.NextTrackSet = new System.Windows.Forms.LinkLabel();
             this.label6 = new System.Windows.Forms.Label();
@@ -53,15 +51,18 @@
             this.PlayPauseLabel = new System.Windows.Forms.Label();
             this.NextTrackLabel = new System.Windows.Forms.Label();
             this.RateupLabel = new System.Windows.Forms.Label();
-            this.RateDownLabel = new System.Windows.Forms.Label();
-            this.DisplaySongLabel = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.PlayPauseSet = new System.Windows.Forms.LinkLabel();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.PlayPauseSet = new System.Windows.Forms.LinkLabel();
+            this.RateDownLabel = new System.Windows.Forms.Label();
+            this.DisplaySongLabel = new System.Windows.Forms.Label();
+            this.RateDownSet = new System.Windows.Forms.LinkLabel();
+            this.DisplaySongSet = new System.Windows.Forms.LinkLabel();
             this.settingsSaveBtn = new System.Windows.Forms.Button();
             this.cancelbtn = new System.Windows.Forms.Button();
+            this.startMinimized = new System.Windows.Forms.CheckBox();
             this.SettingsTabControl.SuspendLayout();
             this.PlayerTab.SuspendLayout();
             this.autologingroupbox.SuspendLayout();
@@ -71,16 +72,19 @@
             // 
             // SettingsTabControl
             // 
+            this.SettingsTabControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.SettingsTabControl.Controls.Add(this.PlayerTab);
             this.SettingsTabControl.Controls.Add(this.KeyboardTab);
             this.SettingsTabControl.Location = new System.Drawing.Point(12, 12);
             this.SettingsTabControl.Name = "SettingsTabControl";
             this.SettingsTabControl.SelectedIndex = 0;
-            this.SettingsTabControl.Size = new System.Drawing.Size(485, 236);
+            this.SettingsTabControl.Size = new System.Drawing.Size(485, 255);
             this.SettingsTabControl.TabIndex = 0;
             // 
             // PlayerTab
             // 
+            this.PlayerTab.Controls.Add(this.startMinimized);
             this.PlayerTab.Controls.Add(this.displaySongRating);
             this.PlayerTab.Controls.Add(this.autologingroupbox);
             this.PlayerTab.Controls.Add(this.displaySongTipsAtEndOfSongCheckBox);
@@ -88,7 +92,7 @@
             this.PlayerTab.Location = new System.Drawing.Point(4, 22);
             this.PlayerTab.Name = "PlayerTab";
             this.PlayerTab.Padding = new System.Windows.Forms.Padding(3);
-            this.PlayerTab.Size = new System.Drawing.Size(477, 210);
+            this.PlayerTab.Size = new System.Drawing.Size(477, 229);
             this.PlayerTab.TabIndex = 0;
             this.PlayerTab.Text = "Player";
             this.PlayerTab.UseVisualStyleBackColor = true;
@@ -105,13 +109,14 @@
             // 
             // autologingroupbox
             // 
+            this.autologingroupbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.autologingroupbox.Controls.Add(this.SecurityRisksLink);
             this.autologingroupbox.Controls.Add(this.jangoPasswordTxtBox);
             this.autologingroupbox.Controls.Add(this.jangoUsernameTxtBox);
             this.autologingroupbox.Controls.Add(this.label2);
             this.autologingroupbox.Controls.Add(this.label1);
             this.autologingroupbox.Controls.Add(this.AutoLoginCheckbox);
-            this.autologingroupbox.Location = new System.Drawing.Point(6, 97);
+            this.autologingroupbox.Location = new System.Drawing.Point(6, 116);
             this.autologingroupbox.Name = "autologingroupbox";
             this.autologingroupbox.Size = new System.Drawing.Size(213, 107);
             this.autologingroupbox.TabIndex = 3;
@@ -243,28 +248,6 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(460, 134);
             this.tableLayoutPanel1.TabIndex = 6;
             // 
-            // DisplaySongSet
-            // 
-            this.DisplaySongSet.AutoSize = true;
-            this.DisplaySongSet.Location = new System.Drawing.Point(340, 112);
-            this.DisplaySongSet.Name = "DisplaySongSet";
-            this.DisplaySongSet.Size = new System.Drawing.Size(23, 13);
-            this.DisplaySongSet.TabIndex = 20;
-            this.DisplaySongSet.TabStop = true;
-            this.DisplaySongSet.Text = "Set";
-            this.DisplaySongSet.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.DisplaySongSet_LinkClicked);
-            // 
-            // RateDownSet
-            // 
-            this.RateDownSet.AutoSize = true;
-            this.RateDownSet.Location = new System.Drawing.Point(340, 90);
-            this.RateDownSet.Name = "RateDownSet";
-            this.RateDownSet.Size = new System.Drawing.Size(23, 13);
-            this.RateDownSet.TabIndex = 19;
-            this.RateDownSet.TabStop = true;
-            this.RateDownSet.Text = "Set";
-            this.RateDownSet.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.RateDownSet_LinkClicked);
-            // 
             // RateUpSet
             // 
             this.RateUpSet.AutoSize = true;
@@ -353,24 +336,6 @@
             this.RateupLabel.TabIndex = 2;
             this.RateupLabel.Text = "Rate Up ";
             // 
-            // RateDownLabel
-            // 
-            this.RateDownLabel.AutoSize = true;
-            this.RateDownLabel.Location = new System.Drawing.Point(160, 90);
-            this.RateDownLabel.Name = "RateDownLabel";
-            this.RateDownLabel.Size = new System.Drawing.Size(64, 13);
-            this.RateDownLabel.TabIndex = 4;
-            this.RateDownLabel.Text = "Rate Down ";
-            // 
-            // DisplaySongLabel
-            // 
-            this.DisplaySongLabel.AutoSize = true;
-            this.DisplaySongLabel.Location = new System.Drawing.Point(160, 112);
-            this.DisplaySongLabel.Name = "DisplaySongLabel";
-            this.DisplaySongLabel.Size = new System.Drawing.Size(69, 13);
-            this.DisplaySongLabel.TabIndex = 5;
-            this.DisplaySongLabel.Text = "Display Song";
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -388,6 +353,17 @@
             this.label8.Size = new System.Drawing.Size(50, 13);
             this.label8.TabIndex = 11;
             this.label8.Text = "Rate Up ";
+            // 
+            // PlayPauseSet
+            // 
+            this.PlayPauseSet.AutoSize = true;
+            this.PlayPauseSet.Location = new System.Drawing.Point(340, 24);
+            this.PlayPauseSet.Name = "PlayPauseSet";
+            this.PlayPauseSet.Size = new System.Drawing.Size(23, 13);
+            this.PlayPauseSet.TabIndex = 15;
+            this.PlayPauseSet.TabStop = true;
+            this.PlayPauseSet.Text = "Set";
+            this.PlayPauseSet.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.PlayPauseSet_LinkClicked);
             // 
             // label10
             // 
@@ -407,20 +383,50 @@
             this.label11.TabIndex = 14;
             this.label11.Text = "Display Song";
             // 
-            // PlayPauseSet
+            // RateDownLabel
             // 
-            this.PlayPauseSet.AutoSize = true;
-            this.PlayPauseSet.Location = new System.Drawing.Point(340, 24);
-            this.PlayPauseSet.Name = "PlayPauseSet";
-            this.PlayPauseSet.Size = new System.Drawing.Size(23, 13);
-            this.PlayPauseSet.TabIndex = 15;
-            this.PlayPauseSet.TabStop = true;
-            this.PlayPauseSet.Text = "Set";
-            this.PlayPauseSet.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.PlayPauseSet_LinkClicked);
+            this.RateDownLabel.AutoSize = true;
+            this.RateDownLabel.Location = new System.Drawing.Point(160, 90);
+            this.RateDownLabel.Name = "RateDownLabel";
+            this.RateDownLabel.Size = new System.Drawing.Size(64, 13);
+            this.RateDownLabel.TabIndex = 4;
+            this.RateDownLabel.Text = "Rate Down ";
+            // 
+            // DisplaySongLabel
+            // 
+            this.DisplaySongLabel.AutoSize = true;
+            this.DisplaySongLabel.Location = new System.Drawing.Point(160, 112);
+            this.DisplaySongLabel.Name = "DisplaySongLabel";
+            this.DisplaySongLabel.Size = new System.Drawing.Size(69, 13);
+            this.DisplaySongLabel.TabIndex = 5;
+            this.DisplaySongLabel.Text = "Display Song";
+            // 
+            // RateDownSet
+            // 
+            this.RateDownSet.AutoSize = true;
+            this.RateDownSet.Location = new System.Drawing.Point(340, 90);
+            this.RateDownSet.Name = "RateDownSet";
+            this.RateDownSet.Size = new System.Drawing.Size(23, 13);
+            this.RateDownSet.TabIndex = 19;
+            this.RateDownSet.TabStop = true;
+            this.RateDownSet.Text = "Set";
+            this.RateDownSet.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.RateDownSet_LinkClicked);
+            // 
+            // DisplaySongSet
+            // 
+            this.DisplaySongSet.AutoSize = true;
+            this.DisplaySongSet.Location = new System.Drawing.Point(340, 112);
+            this.DisplaySongSet.Name = "DisplaySongSet";
+            this.DisplaySongSet.Size = new System.Drawing.Size(23, 13);
+            this.DisplaySongSet.TabIndex = 20;
+            this.DisplaySongSet.TabStop = true;
+            this.DisplaySongSet.Text = "Set";
+            this.DisplaySongSet.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.DisplaySongSet_LinkClicked);
             // 
             // settingsSaveBtn
             // 
-            this.settingsSaveBtn.Location = new System.Drawing.Point(337, 254);
+            this.settingsSaveBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.settingsSaveBtn.Location = new System.Drawing.Point(337, 273);
             this.settingsSaveBtn.Name = "settingsSaveBtn";
             this.settingsSaveBtn.Size = new System.Drawing.Size(75, 23);
             this.settingsSaveBtn.TabIndex = 1;
@@ -430,7 +436,8 @@
             // 
             // cancelbtn
             // 
-            this.cancelbtn.Location = new System.Drawing.Point(418, 254);
+            this.cancelbtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cancelbtn.Location = new System.Drawing.Point(418, 273);
             this.cancelbtn.Name = "cancelbtn";
             this.cancelbtn.Size = new System.Drawing.Size(75, 23);
             this.cancelbtn.TabIndex = 2;
@@ -438,11 +445,21 @@
             this.cancelbtn.UseVisualStyleBackColor = true;
             this.cancelbtn.Click += new System.EventHandler(this.cancelbtn_Click);
             // 
+            // startMinimized
+            // 
+            this.startMinimized.AutoSize = true;
+            this.startMinimized.Location = new System.Drawing.Point(7, 84);
+            this.startMinimized.Name = "startMinimized";
+            this.startMinimized.Size = new System.Drawing.Size(96, 17);
+            this.startMinimized.TabIndex = 5;
+            this.startMinimized.Text = "Start minimized";
+            this.startMinimized.UseVisualStyleBackColor = true;
+            // 
             // SettingsDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(506, 291);
+            this.ClientSize = new System.Drawing.Size(506, 303);
             this.Controls.Add(this.cancelbtn);
             this.Controls.Add(this.settingsSaveBtn);
             this.Controls.Add(this.SettingsTabControl);
@@ -501,5 +518,6 @@
         private System.Windows.Forms.LinkLabel RateUpSet;
         private System.Windows.Forms.LinkLabel NextTrackSet;
         private System.Windows.Forms.CheckBox displaySongRating;
+        private System.Windows.Forms.CheckBox startMinimized;
     }
 }
