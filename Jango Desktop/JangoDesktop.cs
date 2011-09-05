@@ -154,7 +154,7 @@ namespace Jango_Desktop
         private void ToggleJangoDesktop()
         {
 
-            if (this.Visible)
+            if (this.Visible && !_starting)
             {
                 this.Visible = false;
                 hideJangoToolStripMenuItem.Text = "Show Jango Desktop";
