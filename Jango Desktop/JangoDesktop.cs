@@ -19,19 +19,10 @@
 
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using gma.System.Windows;
-using System.Threading;
-using System.IO;
 using Jango_Desktop.Properties;
 using Jango_Desktop.Utilities;
-
-
 
 
 namespace Jango_Desktop
@@ -40,19 +31,15 @@ namespace Jango_Desktop
 
     public partial class JangoDesktop : Form
     {
-        UserActivityHook actHook;
-        String tempSong = "";
-        String timer, artist, song;
-        Skybound.Gecko.GeckoDocument hDoc;
-        public bool loaded = true;
-        public bool cleared = false;
+        UserActivityHook _actHook;
+        private String _tempSong = null;
+        private Track _track;
+        private bool _starting = true;
 
         public JangoDesktop()
         {
             InitializeComponent();
         }
-
-
 
         #region Keyboard Hooks
         //Keyboard Hooks
@@ -76,28 +63,25 @@ namespace Jango_Desktop
 
             //DisplayToolTip
             else if (e.KeyData.Equals(Settings.Default.KeyboardDisplaySong))
-                parseSong(true);
+                ParseSong(true);
         }
         #endregion
 
         #region Actions
         //Action Calls
 
-        //_jp.ctrls.isPlaying() 
         private void NextTrack()
         {
             JangoBrowser.Navigate("javascript:void(_jp.ctrls.onSkip());");
 
         }
-        public void PlayPause()
+
+        private void PlayPause()
         {
             JangoBrowser.Navigate("javascript:void(_jp.ctrls.onPlayPause())");
-
-            //;
-           // javascript:void(document.getElementsByName('content')[0].contentWindow.document.getElementById('player_love').onclick());
         }
 
-        public void RateSongUp()
+        private void RateSongUp()
         {
             JangoBrowser.Navigate("javascript:void(document.getElementsByName('content')[0].contentWindow.document.getElementById('player_love').onclick());");
             if (Settings.Default.DisplaySongRating)
@@ -106,7 +90,7 @@ namespace Jango_Desktop
             }
         }
 
-        public void RateSongDown()
+        private void RateSongDown()
         {
             JangoBrowser.Navigate("javascript:void(document.getElementsByName('content')[0].contentWindow.document.getElementById('player_hate').onclick());");
             if (Settings.Default.DisplaySongRating)
@@ -119,72 +103,19 @@ namespace Jango_Desktop
         #endregion
 
         #region Setup Jango Desktop
-        //Browser Navigation Methods
-        public void NavigateToUrlSync(string url)
+
+        private void JangoDesktopLoad(object sender, EventArgs e)
         {
-            loaded = false;
-            JangoBrowser.Navigate(url);
-            while (!loaded)
+            if (!Settings.Default.StartMinimized)
             {
-                Application.DoEvents();
+                ToggleJangoDesktop();
             }
-        }
-
-
-        private void WebBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-            loaded = true;
-
-        }
-
-        #region Cache Buster
-        private void ClearInternetCacheFolder()
-        {
-            ClearFolder(new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.InternetCache)));
-            cleared = true;
-        }
-        private void ClearFolder(DirectoryInfo directoryInfo)
-        {
-            foreach (FileInfo file in directoryInfo.GetFiles())
-            {
-
-                try
-                {
-
-
-                    if (file.Name.Contains("soundmanager"))
-                    {
-                        file.Delete();
-                    }
-                }
-                catch { }
-            }
-            foreach
-                (DirectoryInfo subfolder in directoryInfo.GetDirectories())
-            {
-                ClearFolder(subfolder);
-            }
-        }
-        #endregion
-
-
-
-        private void JangoDesktop_Load(object sender, EventArgs e)
-        {
-            //Cache Buster
-            ClearInternetCacheFolder();
-            while (!cleared)
-            {
-                Application.DoEvents();
-            }
-            //end cache busting
             if (Settings.Default.AutoLogin)
             {
                 //AutoLogin is turned on
                 string decryptedUsername = AESEncryption.Decrypt(Settings.Default.JangoUsername, Environment.MachineName + Environment.ProcessorCount, Environment.UserName, "SHA1", Environment.ProcessorCount, "16CHARSLONG12345", 256);
                 string decryptedPassword = AESEncryption.Decrypt(Settings.Default.JangoPassword, Environment.MachineName + Environment.ProcessorCount, Environment.UserName, "SHA1", Environment.ProcessorCount, "16CHARSLONG12345", 256);
                 JangoBrowser.Navigate("http://www.jango.com/splogin?user[email]=" + decryptedUsername + "&user[password]=" + decryptedPassword);
-
             }
             else
             {
@@ -194,33 +125,33 @@ namespace Jango_Desktop
             //Start Keyboard Hook
             try
             {
-                actHook = new UserActivityHook();
-                actHook.KeyDown += new KeyEventHandler(MyKeyDown);
-                actHook.Start();
+                _actHook = new UserActivityHook();
+                _actHook.KeyDown += new KeyEventHandler(MyKeyDown);
+                _actHook.Start();
             }
             catch (Exception)
             {
-                MessageBox.Show("Error setting up media keys. They will not work. Try to restart Jango Desktop");
+                MessageBox.Show("Error setting up media keys. They will not work. Try restarting Jango Desktop");
             }
+
+            _starting = false;
         }
+        #endregion
 
-
+        #region Jango Desktop Load
 
         private void JangoDesktop_Resize(object sender, EventArgs e)
         {
-            if (this.WindowState == FormWindowState.Minimized)
-            {
-                toggleJango();
-            }
-
+            if (this.WindowState == FormWindowState.Minimized && !_starting )
+                ToggleJangoDesktop();
         }
 
-        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void NotifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            toggleJango();
+            ToggleJangoDesktop();
         }
 
-        private void toggleJango()
+        private void ToggleJangoDesktop()
         {
 
             if (this.Visible)
@@ -244,102 +175,76 @@ namespace Jango_Desktop
 
 
         #region Context Menu Items
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-        private void hideJangoToolStripMenuItem_Click(object sender, EventArgs e)
+        private void HideJangoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            toggleJango();
+            ToggleJangoDesktop();
         }
 
-        private void showLyricsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ShowLyricsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("http://jango.com/players/lyrics");
         }
         
         //Context Menu Items
-        private void greatToolStripMenuItem_Click(object sender, EventArgs e)
+        private void GreatToolStripMenuItem_Click(object sender, EventArgs e)
         {
             RateSongUp();
         }
 
-        private void badToolStripMenuItem_Click(object sender, EventArgs e)
+        private void BadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             RateSongDown();
         }
 
-        private void displayCurrentSongToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DisplayCurrentSongToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            parseSong(true);
+            ParseSong(true);
         }
 
-        private void nextTrackToolStripMenuItem_Click(object sender, EventArgs e)
+        private void NextTrackToolStripMenuItem_Click(object sender, EventArgs e)
         {
             NextTrack();
         }
 
-        private void playPauseSongToolStripMenuItem_Click(object sender, EventArgs e)
+        private void PlayPauseSongToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PlayPause();
         }
         #endregion
 
-
-        private void songCheckerTimer_Tick(object sender, EventArgs e)
+        private void CheckSong()
         {
-            SongChecker();
+            if (_tempSong != _track.Song)
+            {
+                _tempSong = _track.Song;
+                ParseSong(Settings.Default.DisplaySongBalloon);
+            }
+
+            if (_track.TimeRemaining.EndsWith("0:10"))
+                ParseSong(Settings.Default.DisplaySongBalloonAtEndOfSong);
+
+            _notifyIcon.Text = _track.ToString();
+
         }
 
-        private void SongChecker()
+        private void ParseSong(bool displayBalloonTip)
         {
-            try
+            if (displayBalloonTip)
             {
-                hDoc = JangoBrowser.Document;
-                //hDoc = hDoc.Frames[1].; //You have to find a way to get into the frame, i didnt realize it. I dont know if innerHtml=innerText.
-                //If a song changes
-                timer = hDoc.GetElementById("timer").InnerHtml;
-                //The current song has changed beginning of a song
-                if (tempSong != hDoc.GetElementById("current-song").InnerHtml)
-                {
-                    tempSong = hDoc.GetElementById("current-song").InnerHtml;
-                    parseSong(Settings.Default.DisplaySongBalloon);
-                }
-
-                //End of a song
-                //Display at end of song
-                if (timer.EndsWith("0:10"))
-                    parseSong(Settings.Default.DisplaySongBalloonAtEndOfSong);
-
-                notifyIcon1.Text = artist + ": " + tempSong + " " + timer;
+                ShowBalloonTip(_track.Artist, _track.Song + " " + _track.TimeRemaining);
             }
-            catch (Exception) { }
-        }
+            CopyToClipBoardToolStripMenuItem1.Enabled = true;
 
-        private void parseSong(bool displayBalloonTip)
-        {
-            try
-            {
-                timer = hDoc.GetElementById("timer").InnerHtml;
-                artist = hDoc.GetElementById("player_current_artist").InnerHtml;
-                song = hDoc.GetElementById("current-song").InnerHtml;
-                if (displayBalloonTip)
-                {
-                    ShowBalloonTip(artist, song + " " + timer);
-                }
-                CopyToClipBoardToolStripMenuItem1.Enabled = true;
-
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-            }
         }
 
         private void ShowBalloonTip(string title, string message)
         {
-            notifyIcon1.ShowBalloonTip(100, title, message, System.Windows.Forms.ToolTipIcon.None);
+            _notifyIcon.ShowBalloonTip(100, title, message, System.Windows.Forms.ToolTipIcon.None);
         }
 
         private void aboutJangoDesktopToolStripMenuItem_Click(object sender, EventArgs e)
@@ -356,7 +261,20 @@ namespace Jango_Desktop
 
         private void CopyToClipBoardToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(artist + " " + song);
+            Clipboard.SetText(_track.Artist + " " + _track.Song);
+        }
+
+        private void JangoBrowser_DocumentTitleChanged(object sender, EventArgs e)
+        {
+            //Usually when the Title changes the song has changed, so check to see if we need to parse songs.
+            if (JangoBrowser.Window.Frames.Count > 0 && _track == null)
+                _track = new Track(JangoBrowser.Window.Frames[1].Document);
+        }
+
+        private void SongUpdater_Tick(object sender, EventArgs e)
+        {
+            if (_track != null)
+                CheckSong();
         }
     }
 }
