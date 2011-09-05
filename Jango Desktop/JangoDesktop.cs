@@ -44,7 +44,7 @@ namespace Jango_Desktop
         String tempSong = "";
         String timer, artist, song;
         Skybound.Gecko.GeckoDocument hDoc;
-        public bool loaded = true;
+        public bool loaded,start = true;
         public bool cleared = false;
 
         public JangoDesktop()
@@ -134,7 +134,6 @@ namespace Jango_Desktop
         private void WebBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             loaded = true;
-
         }
 
         #region Cache Buster
@@ -150,8 +149,6 @@ namespace Jango_Desktop
 
                 try
                 {
-
-
                     if (file.Name.Contains("soundmanager"))
                     {
                         file.Delete();
@@ -168,7 +165,7 @@ namespace Jango_Desktop
         #endregion
 
 
-
+        #region Load
         private void JangoDesktop_Load(object sender, EventArgs e)
         {
             //Cache Buster
@@ -177,14 +174,14 @@ namespace Jango_Desktop
             {
                 Application.DoEvents();
             }
-            //end cache busting
+            //end cache busting           
+
             if (Settings.Default.AutoLogin)
             {
                 //AutoLogin is turned on
                 string decryptedUsername = AESEncryption.Decrypt(Settings.Default.JangoUsername, Environment.MachineName + Environment.ProcessorCount, Environment.UserName, "SHA1", Environment.ProcessorCount, "16CHARSLONG12345", 256);
                 string decryptedPassword = AESEncryption.Decrypt(Settings.Default.JangoPassword, Environment.MachineName + Environment.ProcessorCount, Environment.UserName, "SHA1", Environment.ProcessorCount, "16CHARSLONG12345", 256);
                 JangoBrowser.Navigate("http://www.jango.com/splogin?user[email]=" + decryptedUsername + "&user[password]=" + decryptedPassword);
-
             }
             else
             {
@@ -203,6 +200,7 @@ namespace Jango_Desktop
                 MessageBox.Show("Error setting up media keys. They will not work. Try to restart Jango Desktop");
             }
         }
+        #endregion
 
 
 
@@ -289,6 +287,12 @@ namespace Jango_Desktop
 
         private void songCheckerTimer_Tick(object sender, EventArgs e)
         {
+            if (Settings.Default.StartMinimized && start)
+            {
+                this.Visible = false;
+                hideJangoToolStripMenuItem.Text = "Show Jango Desktop";
+                start = false;
+            }
             SongChecker();
         }
 
