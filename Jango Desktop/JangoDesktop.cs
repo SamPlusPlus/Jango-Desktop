@@ -296,8 +296,7 @@ namespace Jango_Desktop
         {
             try
             {
-                hDoc = JangoBrowser.Document;
-                //hDoc = hDoc.Frames[1].; //You have to find a way to get into the frame, i didnt realize it. I dont know if innerHtml=innerText.
+                hDoc = JangoBrowser.Window.Frames[1].Document;
                 //If a song changes
                 timer = hDoc.GetElementById("timer").InnerHtml;
                 //The current song has changed beginning of a song
