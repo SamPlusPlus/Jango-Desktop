@@ -47,6 +47,7 @@
             this.aboutJangoDesktopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.JangoBrowser = new Skybound.Gecko.GeckoWebBrowser();
+            this.SongUpdater = new System.Windows.Forms.Timer(this.components);
             this.JangoContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -194,6 +195,12 @@
             this.JangoBrowser.TabIndex = 1;
             this.JangoBrowser.DocumentTitleChanged += new System.EventHandler(this.JangoBrowser_DocumentTitleChanged);
             // 
+            // SongUpdater
+            // 
+            this.SongUpdater.Enabled = true;
+            this.SongUpdater.Interval = 1000;
+            this.SongUpdater.Tick += new System.EventHandler(this.SongUpdater_Tick);
+            // 
             // JangoDesktop
             // 
             this.ClientSize = new System.Drawing.Size(1003, 326);
@@ -207,7 +214,7 @@
             this.Resize += new System.EventHandler(this.JangoDesktop_Resize);
             this.JangoContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.Visible = false; 
+
         }
 
         #endregion
@@ -229,6 +236,7 @@
         private System.Windows.Forms.ToolStripMenuItem CopyToClipBoardToolStripMenuItem1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private Skybound.Gecko.GeckoWebBrowser JangoBrowser;
+        private System.Windows.Forms.Timer SongUpdater;
     }
 }
 
