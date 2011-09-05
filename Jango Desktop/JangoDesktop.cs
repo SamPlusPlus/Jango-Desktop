@@ -228,7 +228,15 @@ namespace Jango_Desktop
             if (_track.TimeRemaining.EndsWith("0:10"))
                 ParseSong(Settings.Default.DisplaySongBalloonAtEndOfSong);
 
-            _notifyIcon.Text = _track.ToString();
+            string trackSong = _track.ToString();
+
+            if (trackSong.Length > 63)
+            {
+                _notifyIcon.Text = trackSong.Substring(0, 62);
+            }else
+            {
+                _notifyIcon.Text = trackSong;
+            }
 
         }
 
