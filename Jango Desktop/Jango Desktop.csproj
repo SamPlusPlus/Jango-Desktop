@@ -187,6 +187,7 @@
     <Compile Include="SettingsDialog.Designer.cs">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Track.cs" />
     <Compile Include="Utilities\UserActivityHook.cs" />
     <Compile Include="Utilities\AESEncryption.cs" />
     <Content Include="xulrunner\chrome\classic.manifest" />
