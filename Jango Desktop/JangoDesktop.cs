@@ -275,8 +275,8 @@ namespace Jango_Desktop
         private void JangoBrowser_DocumentTitleChanged(object sender, EventArgs e)
         {
             //Usually when the Title changes the song has changed, so check to see if we need to parse songs.
-            if (JangoBrowser.Window.Frames.Count > 0 && _track == null)
-                _track = new Track(JangoBrowser.Window.Frames[1].Document);
+            if (JangoBrowser.Window.Frames.Count > 0 && JangoBrowser.Window.Frames[1].Document.GetElementById("current-song") != null)
+               _track = new Track(JangoBrowser.Window.Frames[1].Document);
         }
 
         private void SongUpdater_Tick(object sender, EventArgs e)
