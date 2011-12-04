@@ -175,43 +175,43 @@ namespace Jango_Desktop
 
 
         #region Context Menu Items
-        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ExitToolStripMenuItemClick(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-        private void HideJangoToolStripMenuItem_Click(object sender, EventArgs e)
+        private void HideJangoToolStripMenuItemClick(object sender, EventArgs e)
         {
             ToggleJangoDesktop();
         }
 
-        private void ShowLyricsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ShowLyricsToolStripMenuItemClick(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("http://jango.com/players/lyrics");
         }
         
         //Context Menu Items
-        private void GreatToolStripMenuItem_Click(object sender, EventArgs e)
+        private void GreatToolStripMenuItemClick(object sender, EventArgs e)
         {
             RateSongUp();
         }
 
-        private void BadToolStripMenuItem_Click(object sender, EventArgs e)
+        private void BadToolStripMenuItemClick(object sender, EventArgs e)
         {
             RateSongDown();
         }
 
-        private void DisplayCurrentSongToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DisplayCurrentSongToolStripMenuItemClick(object sender, EventArgs e)
         {
             ParseSong(true);
         }
 
-        private void NextTrackToolStripMenuItem_Click(object sender, EventArgs e)
+        private void NextTrackToolStripMenuItemClick(object sender, EventArgs e)
         {
             NextTrack();
         }
 
-        private void PlayPauseSongToolStripMenuItem_Click(object sender, EventArgs e)
+        private void PlayPauseSongToolStripMenuItemClick(object sender, EventArgs e)
         {
             PlayPause();
         }
@@ -219,6 +219,8 @@ namespace Jango_Desktop
 
         private void CheckSong()
         {
+            if (_track.Song == null) return;
+
             if (_tempSong != _track.Song)
             {
                 _tempSong = _track.Song;
@@ -230,14 +232,7 @@ namespace Jango_Desktop
 
             string trackSong = _track.ToString();
 
-            if (trackSong.Length > 63)
-            {
-                _notifyIcon.Text = trackSong.Substring(0, 62);
-            }else
-            {
-                _notifyIcon.Text = trackSong;
-            }
-
+            _notifyIcon.Text = trackSong.Length > 63 ? trackSong.Substring(0, 62) : trackSong;
         }
 
         private void ParseSong(bool displayBalloonTip)
@@ -252,37 +247,42 @@ namespace Jango_Desktop
 
         private void ShowBalloonTip(string title, string message)
         {
-            _notifyIcon.ShowBalloonTip(100, title, message, System.Windows.Forms.ToolTipIcon.None);
+            if (!String.IsNullOrEmpty(title) && !String.IsNullOrEmpty(message))
+            {
+                _notifyIcon.ShowBalloonTip(100, title, message, System.Windows.Forms.ToolTipIcon.None);
+            }
         }
 
-        private void aboutJangoDesktopToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AboutJangoDesktopToolStripMenuItemClick(object sender, EventArgs e)
         {
             AboutForm about = new AboutForm();
             about.ShowDialog();
         }
 
-        private void SettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SettingsToolStripMenuItemClick(object sender, EventArgs e)
         {
             SettingsDialog settingsDialog = new SettingsDialog();
             settingsDialog.ShowDialog();
         }
 
-        private void CopyToClipBoardToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void CopyToClipBoardToolStripMenuItemClick(object sender, EventArgs e)
         {
             Clipboard.SetText(_track.Artist + " " + _track.Song);
         }
 
-        private void JangoBrowser_DocumentTitleChanged(object sender, EventArgs e)
-        {
-            //Usually when the Title changes the song has changed, so check to see if we need to parse songs.
-            if (JangoBrowser.Window.Frames.Count > 0 && JangoBrowser.Window.Frames[1].Document.GetElementById("current-song") != null)
-               _track = new Track(JangoBrowser.Window.Frames[1].Document);
-        }
-
-        private void SongUpdater_Tick(object sender, EventArgs e)
+        private void SongUpdaterTick(object sender, EventArgs e)
         {
             if (_track != null)
+            {
                 CheckSong();
+            }
+        }
+
+        private void JangoBrowserDocumentCompleted(object sender, EventArgs e)
+        {
+            //Reset the track when the page has finished loading, this will be triggered if users launch any links on the page.
+            if (JangoBrowser.Window.Frames.Count > 0 && JangoBrowser.Window.Frames[1].Document.GetElementById("current-song").InnerHtml != null)
+                _track = new Track(JangoBrowser.Window.Frames[1].Document);
         }
     }
 }

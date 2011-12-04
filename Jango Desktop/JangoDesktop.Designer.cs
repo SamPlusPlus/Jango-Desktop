@@ -75,7 +75,7 @@
             this.aboutJangoDesktopToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.JangoContextMenu.Name = "JangoContextMenu";
-            this.JangoContextMenu.Size = new System.Drawing.Size(188, 236);
+            this.JangoContextMenu.Size = new System.Drawing.Size(188, 258);
             // 
             // playPauseSongToolStripMenuItem
             // 
@@ -83,7 +83,7 @@
             this.playPauseSongToolStripMenuItem.Name = "playPauseSongToolStripMenuItem";
             this.playPauseSongToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.playPauseSongToolStripMenuItem.Text = "Play/Pause  Song";
-            this.playPauseSongToolStripMenuItem.Click += new System.EventHandler(this.PlayPauseSongToolStripMenuItem_Click);
+            this.playPauseSongToolStripMenuItem.Click += new System.EventHandler(this.PlayPauseSongToolStripMenuItemClick);
             // 
             // nextTrackToolStripMenuItem
             // 
@@ -91,7 +91,7 @@
             this.nextTrackToolStripMenuItem.Name = "nextTrackToolStripMenuItem";
             this.nextTrackToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.nextTrackToolStripMenuItem.Text = "Next Track";
-            this.nextTrackToolStripMenuItem.Click += new System.EventHandler(this.NextTrackToolStripMenuItem_Click);
+            this.nextTrackToolStripMenuItem.Click += new System.EventHandler(this.NextTrackToolStripMenuItemClick);
             // 
             // displayCurrentSongToolStripMenuItem
             // 
@@ -99,7 +99,7 @@
             this.displayCurrentSongToolStripMenuItem.Name = "displayCurrentSongToolStripMenuItem";
             this.displayCurrentSongToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.displayCurrentSongToolStripMenuItem.Text = "Display Current Song";
-            this.displayCurrentSongToolStripMenuItem.Click += new System.EventHandler(this.DisplayCurrentSongToolStripMenuItem_Click);
+            this.displayCurrentSongToolStripMenuItem.Click += new System.EventHandler(this.DisplayCurrentSongToolStripMenuItemClick);
             // 
             // rateSongToolStripMenuItem
             // 
@@ -117,7 +117,7 @@
             this.greatToolStripMenuItem.Name = "greatToolStripMenuItem";
             this.greatToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
             this.greatToolStripMenuItem.Text = "Love";
-            this.greatToolStripMenuItem.Click += new System.EventHandler(this.GreatToolStripMenuItem_Click);
+            this.greatToolStripMenuItem.Click += new System.EventHandler(this.GreatToolStripMenuItemClick);
             // 
             // badToolStripMenuItem
             // 
@@ -125,7 +125,7 @@
             this.badToolStripMenuItem.Name = "badToolStripMenuItem";
             this.badToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
             this.badToolStripMenuItem.Text = "Hate";
-            this.badToolStripMenuItem.Click += new System.EventHandler(this.BadToolStripMenuItem_Click);
+            this.badToolStripMenuItem.Click += new System.EventHandler(this.BadToolStripMenuItemClick);
             // 
             // showLyricsToolStripMenuItem
             // 
@@ -133,7 +133,7 @@
             this.showLyricsToolStripMenuItem.Name = "showLyricsToolStripMenuItem";
             this.showLyricsToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.showLyricsToolStripMenuItem.Text = "Show Lyrics ";
-            this.showLyricsToolStripMenuItem.Click += new System.EventHandler(this.ShowLyricsToolStripMenuItem_Click);
+            this.showLyricsToolStripMenuItem.Click += new System.EventHandler(this.ShowLyricsToolStripMenuItemClick);
             // 
             // toolStripSeparator1
             // 
@@ -146,7 +146,7 @@
             this.SettingsToolStripMenuItem.Name = "SettingsToolStripMenuItem";
             this.SettingsToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.SettingsToolStripMenuItem.Text = "Settings";
-            this.SettingsToolStripMenuItem.Click += new System.EventHandler(this.SettingsToolStripMenuItem_Click);
+            this.SettingsToolStripMenuItem.Click += new System.EventHandler(this.SettingsToolStripMenuItemClick);
             // 
             // CopyToClipBoardToolStripMenuItem1
             // 
@@ -155,7 +155,7 @@
             this.CopyToClipBoardToolStripMenuItem1.Name = "CopyToClipBoardToolStripMenuItem1";
             this.CopyToClipBoardToolStripMenuItem1.Size = new System.Drawing.Size(187, 22);
             this.CopyToClipBoardToolStripMenuItem1.Text = "Copy to Clipboard";
-            this.CopyToClipBoardToolStripMenuItem1.Click += new System.EventHandler(this.CopyToClipBoardToolStripMenuItem1_Click);
+            this.CopyToClipBoardToolStripMenuItem1.Click += new System.EventHandler(this.CopyToClipBoardToolStripMenuItemClick);
             // 
             // toolStripSeparator2
             // 
@@ -168,7 +168,7 @@
             this.hideJangoToolStripMenuItem.Name = "hideJangoToolStripMenuItem";
             this.hideJangoToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.hideJangoToolStripMenuItem.Text = "Show Jango Desktop ";
-            this.hideJangoToolStripMenuItem.Click += new System.EventHandler(this.HideJangoToolStripMenuItem_Click);
+            this.hideJangoToolStripMenuItem.Click += new System.EventHandler(this.HideJangoToolStripMenuItemClick);
             // 
             // aboutJangoDesktopToolStripMenuItem
             // 
@@ -176,7 +176,7 @@
             this.aboutJangoDesktopToolStripMenuItem.Name = "aboutJangoDesktopToolStripMenuItem";
             this.aboutJangoDesktopToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.aboutJangoDesktopToolStripMenuItem.Text = "About Jango Desktop";
-            this.aboutJangoDesktopToolStripMenuItem.Click += new System.EventHandler(this.aboutJangoDesktopToolStripMenuItem_Click);
+            this.aboutJangoDesktopToolStripMenuItem.Click += new System.EventHandler(this.AboutJangoDesktopToolStripMenuItemClick);
             // 
             // exitToolStripMenuItem
             // 
@@ -184,7 +184,7 @@
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItemClick);
             // 
             // JangoBrowser
             // 
@@ -193,13 +193,13 @@
             this.JangoBrowser.Name = "JangoBrowser";
             this.JangoBrowser.Size = new System.Drawing.Size(1003, 326);
             this.JangoBrowser.TabIndex = 1;
-            this.JangoBrowser.DocumentTitleChanged += new System.EventHandler(this.JangoBrowser_DocumentTitleChanged);
+            this.JangoBrowser.DocumentCompleted += new System.EventHandler(this.JangoBrowserDocumentCompleted);
             // 
             // SongUpdater
             // 
             this.SongUpdater.Enabled = true;
             this.SongUpdater.Interval = 1000;
-            this.SongUpdater.Tick += new System.EventHandler(this.SongUpdater_Tick);
+            this.SongUpdater.Tick += new System.EventHandler(this.SongUpdaterTick);
             // 
             // JangoDesktop
             // 

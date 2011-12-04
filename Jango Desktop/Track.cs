@@ -1,37 +1,64 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
 
 namespace Jango_Desktop
 {
     public class Track
     {
-        private readonly Skybound.Gecko.GeckoDocument gDoc;
+        private readonly Skybound.Gecko.GeckoDocument _gDoc;
 
         public Track(Skybound.Gecko.GeckoDocument gDoc)
         {
-            this.gDoc = gDoc;
+            this._gDoc = gDoc;
         }
 
         public string TimeRemaining 
         {
-           get{ return gDoc.GetElementById("timer").InnerHtml.Trim(); }
+           get
+           {
+               var timerEle = _gDoc.GetElementById("timer");
+               if (timerEle != null)
+               {
+                   return timerEle.InnerHtml.Trim();
+               }
+               return null;
+           }
         } 
 
         public string Artist 
         {
-            get{ return gDoc.GetElementById("player_current_artist").InnerHtml.Trim();}
+            get
+            {
+                var artistEle = _gDoc.GetElementById("player_current_artist");
+                if(artistEle != null)
+                {
+                    return artistEle.InnerHtml.Trim();
+                }
+                return null;
+
+            }
         }
 
         public string Song
         {
-            get { return gDoc.GetElementById("current-song").InnerHtml.Trim(); }
+            get
+            {
+                var songEle = _gDoc.GetElementById("current-song");
+                if (songEle != null)
+                {
+                    return songEle.InnerHtml.Trim();
+                }
+                return null;
+            }
         }
 
         public override string ToString()
         {
-            return String.Format("{0}:{1} {2}", Artist, Song, TimeRemaining);
+            if (Artist != null && Song != null && TimeRemaining != null)
+            {
+                return String.Format("{0}:{1} {2}", Artist, Song, TimeRemaining);
+            }
+            return String.Empty;
         }
     }
 }
