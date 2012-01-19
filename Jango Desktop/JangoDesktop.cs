@@ -88,6 +88,7 @@ namespace Jango_Desktop
             {
                 ShowBalloonTip("Love", "=)");
             }
+            SubmitRate();
         }
 
         private void RateSongDown()
@@ -97,7 +98,16 @@ namespace Jango_Desktop
             {
                 ShowBalloonTip("Hate", "=(");
             }
+            SubmitRate();
         }
+
+        private void SubmitRate()
+        {
+            JangoBrowser.Navigate(
+                "javascript:void(document.getElementsByName('content')[0].contentWindow.document.getElementById('thumbs_updown_form').firstElementChild.firstElementChild.children[2].firstElementChild.firstElementChild.firstElementChild.click());");
+        }
+
+        
 
       
         #endregion
