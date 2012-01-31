@@ -126,7 +126,7 @@ namespace Jango_Desktop
 
         private void contributeLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("http://code.google.com/p/jango-desktop/");
+            System.Diagnostics.Process.Start("https://github.com/SamPlusPlus/Jango-Desktop");
         }
 
         private void donateLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
