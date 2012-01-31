@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 
 namespace Jango_Desktop
@@ -32,7 +33,7 @@ namespace Jango_Desktop
                 var artistEle = _gDoc.GetElementById("player_current_artist");
                 if(artistEle != null)
                 {
-                    return artistEle.InnerHtml.Trim();
+                    return RemoveHtmlTags(artistEle.InnerHtml.Trim());
                 }
                 return null;
 
@@ -46,7 +47,7 @@ namespace Jango_Desktop
                 var songEle = _gDoc.GetElementById("current-song");
                 if (songEle != null)
                 {
-                    return songEle.InnerHtml.Trim();
+                    return RemoveHtmlTags(songEle.InnerHtml.Trim());
                 }
                 return null;
             }
@@ -56,9 +57,19 @@ namespace Jango_Desktop
         {
             if (Artist != null && Song != null && TimeRemaining != null)
             {
-                return String.Format("{0}:{1} {2}", Artist, Song, TimeRemaining);
+                return String.Format("{0}:{1} {2}", Song, Artist, TimeRemaining);
             }
             return String.Empty;
+        }
+
+        /// <summary>
+        /// This function will remove basic html tags from a string.
+        /// </summary>
+        /// <param name="html">input string containing basic html tags</param>
+        /// <returns>string with html tags removed</returns>
+        private string RemoveHtmlTags(string html)
+        {
+            return Regex.Replace(html, @"<[^>]*>", String.Empty);
         }
     }
 }

@@ -249,7 +249,7 @@ namespace Jango_Desktop
         {
             if (displayBalloonTip)
             {
-                ShowBalloonTip(_track.Artist, _track.Song + " " + _track.TimeRemaining);
+                ShowBalloonTip(_track.Song, _track.Artist + " " + _track.TimeRemaining);
             }
             CopyToClipBoardToolStripMenuItem1.Enabled = true;
 
@@ -277,7 +277,7 @@ namespace Jango_Desktop
 
         private void CopyToClipBoardToolStripMenuItemClick(object sender, EventArgs e)
         {
-            Clipboard.SetText(_track.Artist + " " + _track.Song);
+            Clipboard.SetText(_track.Song + " " + _track.Artist);
         }
 
         private void SongUpdaterTick(object sender, EventArgs e)
