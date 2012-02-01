@@ -83,7 +83,7 @@ namespace Jango_Desktop
 
         private void RateSongUp()
         {
-            JangoBrowser.Navigate("javascript:void(document.getElementsByName('content')[0].contentWindow.document.getElementById('player_love').onclick());");
+            JangoBrowser.Navigate("javascript:void(document.getElementsByName('content')[0].contentWindow.document.getElementById('player_love').click());");
             if (Settings.Default.DisplaySongRating)
             {
                 ShowBalloonTip("Love", "=)");
@@ -93,7 +93,7 @@ namespace Jango_Desktop
 
         private void RateSongDown()
         {
-            JangoBrowser.Navigate("javascript:void(document.getElementsByName('content')[0].contentWindow.document.getElementById('player_hate').onclick());");
+            JangoBrowser.Navigate("javascript:void(document.getElementsByName('content')[0].contentWindow.document.getElementById('player_hate').click());");
             if (Settings.Default.DisplaySongRating)
             {
                 ShowBalloonTip("Hate", "=(");
@@ -103,8 +103,7 @@ namespace Jango_Desktop
 
         private void SubmitRate()
         {
-            JangoBrowser.Navigate(
-                "javascript:void(document.getElementsByName('content')[0].contentWindow.document.getElementById('thumbs_updown_form').firstElementChild.firstElementChild.children[2].firstElementChild.firstElementChild.firstElementChild.click());");
+            JangoBrowser.Navigate("javascript:void(document.getElementsByName('content')[0].contentWindow.document.getElementsByName('commit')[0].click());");
         }
 
         
@@ -293,6 +292,10 @@ namespace Jango_Desktop
             //Reset the track when the page has finished loading, this will be triggered if users launch any links on the page.
             if (JangoBrowser.Window.Frames.Count > 0 && JangoBrowser.Window.Frames[1].Document.GetElementById("current-song").InnerHtml != null)
                 _track = new Track(JangoBrowser.Window.Frames[1].Document);
+
+            //Submit a vote/rate if need be
+            if (JangoBrowser.Window.Frames.Count > 0 && JangoBrowser.Window.Frames[1].Document.GetElementsByName("commit").Count > 0)
+                 SubmitRate();
         }
     }
 }
