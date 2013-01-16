@@ -109,9 +109,9 @@
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="OpenGeckoSharp, Version=1.9.0.1, Culture=neutral, processorArchitecture=x86">
-      <HintPath>.\OpenGeckoSharp.dll</HintPath>
+    <Reference Include="OpenGeckoSharp, Version=1.9.1.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\OpenGeckoSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.EnterpriseServices" />
