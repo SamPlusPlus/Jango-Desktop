@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using System.Web;
 
 
 namespace Jango_Desktop
@@ -33,7 +34,7 @@ namespace Jango_Desktop
                 var artistEle = _gDoc.GetElementById("player_current_artist");
                 if(artistEle != null)
                 {
-                    return RemoveHtmlTags(artistEle.InnerHtml.Trim());
+                    return CleanHtml(artistEle.InnerHtml.Trim());
                 }
                 return null;
 
@@ -47,7 +48,7 @@ namespace Jango_Desktop
                 var songEle = _gDoc.GetElementById("current-song");
                 if (songEle != null)
                 {
-                    return RemoveHtmlTags(songEle.InnerHtml.Trim());
+                    return CleanHtml(songEle.InnerHtml.Trim());
                 }
                 return null;
             }
@@ -67,9 +68,9 @@ namespace Jango_Desktop
         /// </summary>
         /// <param name="html">input string containing basic html tags</param>
         /// <returns>string with html tags removed</returns>
-        private string RemoveHtmlTags(string html)
+        private string CleanHtml(string html)
         {
-            return Regex.Replace(html, @"<[^>]*>", String.Empty);
+            return HttpUtility.HtmlDecode(Regex.Replace(html, @"<[^>]*>", String.Empty));
         }
     }
 }
