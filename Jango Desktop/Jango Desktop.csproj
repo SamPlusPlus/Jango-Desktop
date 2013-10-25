@@ -190,6 +190,7 @@
     <Compile Include="Track.cs" />
     <Compile Include="Utilities\UserActivityHook.cs" />
     <Compile Include="Utilities\AESEncryption.cs" />
+    <None Include="Resources\arrow_refresh.png" />
     <Content Include="xulrunner\chrome\classic.manifest" />
     <Content Include="xulrunner\chrome\comm.manifest" />
     <Content Include="xulrunner\chrome\en-US.manifest" />

@@ -30,6 +30,7 @@
         {
             this.SettingsTabControl = new System.Windows.Forms.TabControl();
             this.PlayerTab = new System.Windows.Forms.TabPage();
+            this.startMinimized = new System.Windows.Forms.CheckBox();
             this.displaySongRating = new System.Windows.Forms.CheckBox();
             this.autologingroupbox = new System.Windows.Forms.GroupBox();
             this.SecurityRisksLink = new System.Windows.Forms.LinkLabel();
@@ -62,7 +63,9 @@
             this.DisplaySongSet = new System.Windows.Forms.LinkLabel();
             this.settingsSaveBtn = new System.Windows.Forms.Button();
             this.cancelbtn = new System.Windows.Forms.Button();
-            this.startMinimized = new System.Windows.Forms.CheckBox();
+            this.RefreshLabel = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.RefreshSet = new System.Windows.Forms.LinkLabel();
             this.SettingsTabControl.SuspendLayout();
             this.PlayerTab.SuspendLayout();
             this.autologingroupbox.SuspendLayout();
@@ -72,8 +75,8 @@
             // 
             // SettingsTabControl
             // 
-            this.SettingsTabControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this.SettingsTabControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)));
             this.SettingsTabControl.Controls.Add(this.PlayerTab);
             this.SettingsTabControl.Controls.Add(this.KeyboardTab);
             this.SettingsTabControl.Location = new System.Drawing.Point(12, 12);
@@ -96,6 +99,16 @@
             this.PlayerTab.TabIndex = 0;
             this.PlayerTab.Text = "Player";
             this.PlayerTab.UseVisualStyleBackColor = true;
+            // 
+            // startMinimized
+            // 
+            this.startMinimized.AutoSize = true;
+            this.startMinimized.Location = new System.Drawing.Point(7, 84);
+            this.startMinimized.Name = "startMinimized";
+            this.startMinimized.Size = new System.Drawing.Size(96, 17);
+            this.startMinimized.TabIndex = 5;
+            this.startMinimized.Text = "Start minimized";
+            this.startMinimized.UseVisualStyleBackColor = true;
             // 
             // displaySongRating
             // 
@@ -203,7 +216,7 @@
             this.KeyboardTab.Location = new System.Drawing.Point(4, 22);
             this.KeyboardTab.Name = "KeyboardTab";
             this.KeyboardTab.Padding = new System.Windows.Forms.Padding(3);
-            this.KeyboardTab.Size = new System.Drawing.Size(477, 210);
+            this.KeyboardTab.Size = new System.Drawing.Size(477, 229);
             this.KeyboardTab.TabIndex = 1;
             this.KeyboardTab.Text = "Keyboard Shortcuts";
             this.KeyboardTab.UseVisualStyleBackColor = true;
@@ -213,9 +226,11 @@
             this.tableLayoutPanel1.AutoSize = true;
             this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Inset;
             this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 34.03756F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 39.67136F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 26.52582F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.95785F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 39.57845F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 26.4637F));
+            this.tableLayoutPanel1.Controls.Add(this.RefreshSet, 2, 6);
+            this.tableLayoutPanel1.Controls.Add(this.label12, 0, 6);
             this.tableLayoutPanel1.Controls.Add(this.RateUpSet, 2, 3);
             this.tableLayoutPanel1.Controls.Add(this.NextTrackSet, 2, 2);
             this.tableLayoutPanel1.Controls.Add(this.label6, 0, 1);
@@ -234,10 +249,11 @@
             this.tableLayoutPanel1.Controls.Add(this.DisplaySongLabel, 1, 5);
             this.tableLayoutPanel1.Controls.Add(this.RateDownSet, 2, 4);
             this.tableLayoutPanel1.Controls.Add(this.DisplaySongSet, 2, 5);
+            this.tableLayoutPanel1.Controls.Add(this.RefreshLabel, 1, 6);
             this.tableLayoutPanel1.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(6, 33);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 6;
+            this.tableLayoutPanel1.RowCount = 7;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
@@ -245,7 +261,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(460, 134);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(460, 156);
             this.tableLayoutPanel1.TabIndex = 6;
             // 
             // RateUpSet
@@ -445,15 +461,34 @@
             this.cancelbtn.UseVisualStyleBackColor = true;
             this.cancelbtn.Click += new System.EventHandler(this.cancelbtn_Click);
             // 
-            // startMinimized
+            // RefreshLabel
             // 
-            this.startMinimized.AutoSize = true;
-            this.startMinimized.Location = new System.Drawing.Point(7, 84);
-            this.startMinimized.Name = "startMinimized";
-            this.startMinimized.Size = new System.Drawing.Size(96, 17);
-            this.startMinimized.TabIndex = 5;
-            this.startMinimized.Text = "Start minimized";
-            this.startMinimized.UseVisualStyleBackColor = true;
+            this.RefreshLabel.AutoSize = true;
+            this.RefreshLabel.Location = new System.Drawing.Point(160, 134);
+            this.RefreshLabel.Name = "RefreshLabel";
+            this.RefreshLabel.Size = new System.Drawing.Size(44, 13);
+            this.RefreshLabel.TabIndex = 21;
+            this.RefreshLabel.Text = "Refresh";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(5, 134);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(44, 13);
+            this.label12.TabIndex = 22;
+            this.label12.Text = "Refresh";
+            // 
+            // RefreshSet
+            // 
+            this.RefreshSet.AutoSize = true;
+            this.RefreshSet.Location = new System.Drawing.Point(340, 134);
+            this.RefreshSet.Name = "RefreshSet";
+            this.RefreshSet.Size = new System.Drawing.Size(23, 13);
+            this.RefreshSet.TabIndex = 23;
+            this.RefreshSet.TabStop = true;
+            this.RefreshSet.Text = "Set";
+            this.RefreshSet.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.RefreshSet_LinkClicked);
             // 
             // SettingsDialog
             // 
@@ -519,5 +554,8 @@
         private System.Windows.Forms.LinkLabel NextTrackSet;
         private System.Windows.Forms.CheckBox displaySongRating;
         private System.Windows.Forms.CheckBox startMinimized;
+        private System.Windows.Forms.LinkLabel RefreshSet;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label RefreshLabel;
     }
 }

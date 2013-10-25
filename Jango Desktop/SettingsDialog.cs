@@ -19,11 +19,6 @@
 
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using Jango_Desktop.Properties;
 using Jango_Desktop.Utilities;
@@ -56,6 +51,7 @@ namespace Jango_Desktop
             RateupLabel.Text = Settings.Default.KeyboardRateUp.ToString();
             RateDownLabel.Text = Settings.Default.KeyboardRateDown.ToString();
             DisplaySongLabel.Text = Settings.Default.KeyboardDisplaySong.ToString();
+            RefreshLabel.Text = Settings.Default.KeyboardRefresh.ToString();
         }
 
         private void settingsSaveBtn_Click(object sender, EventArgs e)
@@ -116,6 +112,11 @@ namespace Jango_Desktop
             Settings.Default.KeyboardDisplaySong = SetShortCut(DisplaySongLabel);
         }
 
+        private void RefreshSet_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Settings.Default.KeyboardRefresh = SetShortCut(RefreshLabel);
+        }
+
         private Keys SetShortCut(Label l)
         {
 
@@ -129,5 +130,7 @@ namespace Jango_Desktop
 
         } 
         #endregion
+
+
     }
 }
