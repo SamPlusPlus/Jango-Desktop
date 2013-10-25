@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2010 Samuel Haddad, 
+ * Copyright (C) 2013 Samuel Haddad, 
  * and individual contributors.
  *
  * This program is free software; you can redistribute it and/or
@@ -29,8 +29,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("A desktop application for http://www.jango.com")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("JangoDesktop.com")]
-[assembly: AssemblyProduct("Jango Deskop")]
-[assembly: AssemblyCopyright("Copyright 2012")]
+[assembly: AssemblyProduct("Jango Desktop")]
+[assembly: AssemblyCopyright("Copyright 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -52,5 +52,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("3.0.5.2")]
-[assembly: AssemblyFileVersion("3.0.5.2")]
+[assembly: AssemblyVersion("3.0.6.0")]
+[assembly: AssemblyFileVersion("3.0.6.0")]
