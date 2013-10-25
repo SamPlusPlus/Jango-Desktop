@@ -36,6 +36,7 @@ namespace Jango_Desktop
         private String _tempSong = null;
         private Track _track;
         private bool _starting = true;
+        private bool _PageNeedsParsing = true; //Should be true if it hasn't loaded or has changed
 
         public JangoDesktop()
         {
@@ -291,14 +292,21 @@ namespace Jango_Desktop
 
         private void SongUpdaterTick(object sender, EventArgs e)
         {
+            if(_PageNeedsParsing)
+            {
+                HandlePageChanged();
+            }
+
+            //Check if we need to display a title change
             if (_track != null)
             {
                 CheckSong();
             }
         }
 
-        private void JangoBrowserDocumentCompleted(object sender, EventArgs e)
+        private void HandlePageChanged()
         {
+            _track = null;
 
             //Reset the track when the page has finished loading, this will be triggered if users launch any links on the page.
             if (JangoBrowser.Window.Frames.Count <= 0) return;
@@ -306,9 +314,12 @@ namespace Jango_Desktop
             //Get the frame jango is running in
             var jangoFrame = JangoBrowser.Window.Frames[1].Document;
 
-            if (jangoFrame.GetElementById("current-song").InnerHtml != null)
+            var currentEle = jangoFrame.GetElementById("current-song");
+
+            if (currentEle != null && currentEle.InnerHtml != null)
             {
                 _track = new Track(JangoBrowser.Window.Frames[1].Document);
+                _PageNeedsParsing = false;
             }
 
             //Submit a vote/rate if need be
@@ -317,5 +328,11 @@ namespace Jango_Desktop
                 SubmitRate();
             }
         }
+
+        private void JangoBrowser_ProgressChanged(object sender, GeckoProgressEventArgs e)
+        {
+            _PageNeedsParsing = true;
+        }
+       
     }
 }

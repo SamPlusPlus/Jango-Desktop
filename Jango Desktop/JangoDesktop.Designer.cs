@@ -32,10 +32,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(JangoDesktop));
             this._notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.JangoContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.JangoBrowser = new Skybound.Gecko.GeckoWebBrowser();
-            this.SongUpdater = new System.Windows.Forms.Timer(this.components);
             this.playPauseSongToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nextTrackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.displayCurrentSongToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,11 +39,15 @@
             this.greatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.badToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.SettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CopyToClipBoardToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.hideJangoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutJangoDesktopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.JangoBrowser = new Skybound.Gecko.GeckoWebBrowser();
+            this.SongUpdater = new System.Windows.Forms.Timer(this.components);
             this.JangoContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -76,31 +76,6 @@
             this.exitToolStripMenuItem});
             this.JangoContextMenu.Name = "JangoContextMenu";
             this.JangoContextMenu.Size = new System.Drawing.Size(188, 236);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(184, 6);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(184, 6);
-            // 
-            // JangoBrowser
-            // 
-            this.JangoBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.JangoBrowser.Location = new System.Drawing.Point(0, 0);
-            this.JangoBrowser.Name = "JangoBrowser";
-            this.JangoBrowser.Size = new System.Drawing.Size(1018, 329);
-            this.JangoBrowser.TabIndex = 1;
-            this.JangoBrowser.DocumentCompleted += new System.EventHandler(this.JangoBrowserDocumentCompleted);
-            // 
-            // SongUpdater
-            // 
-            this.SongUpdater.Enabled = true;
-            this.SongUpdater.Interval = 1000;
-            this.SongUpdater.Tick += new System.EventHandler(this.SongUpdaterTick);
             // 
             // playPauseSongToolStripMenuItem
             // 
@@ -161,6 +136,11 @@
             this.refreshToolStripMenuItem1.ToolTipText = "If Jango.com freezes for any reason, you can refresh the page and try again.";
             this.refreshToolStripMenuItem1.Click += new System.EventHandler(this.refreshToolStripMenuItem1_Click);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(184, 6);
+            // 
             // SettingsToolStripMenuItem
             // 
             this.SettingsToolStripMenuItem.Image = global::Jango_Desktop.Properties.Resources.wrench_orange;
@@ -177,6 +157,11 @@
             this.CopyToClipBoardToolStripMenuItem1.Size = new System.Drawing.Size(187, 22);
             this.CopyToClipBoardToolStripMenuItem1.Text = "Copy to Clipboard";
             this.CopyToClipBoardToolStripMenuItem1.Click += new System.EventHandler(this.CopyToClipBoardToolStripMenuItemClick);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(184, 6);
             // 
             // hideJangoToolStripMenuItem
             // 
@@ -201,6 +186,21 @@
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItemClick);
+            // 
+            // JangoBrowser
+            // 
+            this.JangoBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.JangoBrowser.Location = new System.Drawing.Point(0, 0);
+            this.JangoBrowser.Name = "JangoBrowser";
+            this.JangoBrowser.Size = new System.Drawing.Size(1003, 326);
+            this.JangoBrowser.TabIndex = 1;
+            this.JangoBrowser.ProgressChanged += new Skybound.Gecko.GeckoProgressEventHandler(this.JangoBrowser_ProgressChanged);
+            // 
+            // SongUpdater
+            // 
+            this.SongUpdater.Enabled = true;
+            this.SongUpdater.Interval = 1000;
+            this.SongUpdater.Tick += new System.EventHandler(this.SongUpdaterTick);
             // 
             // JangoDesktop
             // 
