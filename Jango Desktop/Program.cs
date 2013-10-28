@@ -36,7 +36,7 @@ namespace Jango_Desktop
              {
                  if (createdNew)
                  {
-                     Application.EnableVisualStyles();
+                    // Application.EnableVisualStyles();
                      Application.SetCompatibleTextRenderingDefault(false);
                      Skybound.Gecko.Xpcom.Initialize("xulrunner");
                      Application.Run(new JangoDesktop());

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Text.RegularExpressions;
 using System.Web;
 
@@ -21,11 +22,27 @@ namespace Jango_Desktop
                var timerEle = _gDoc.GetElementById("timer");
                if (timerEle != null)
                {
+                   string timeRemaing = timerEle.InnerHtml.Trim().Replace("-", "").Replace(":", "");
+                   int result;
+                   if(int.TryParse(timeRemaing, out  result))
+                   {
+                       TrackLength = Math.Max(result, TrackLength);
+                       TimeRemainingAtInt = result;
+                   }
                    return timerEle.InnerHtml.Trim();
                }
+               TrackLength = 0;
                return null;
+
            }
-        } 
+        }
+
+        public int TrackLength { get; set; }
+
+        public int TimeRemainingAtInt
+        {
+            get; set;
+        }
 
         public string Artist 
         {
@@ -51,6 +68,42 @@ namespace Jango_Desktop
                     return CleanHtml(songEle.InnerHtml.Trim());
                 }
                 return null;
+            }
+        }
+
+        public string AlbumArtUrl
+        {
+
+            get
+            {
+                string src = string.Empty;
+                var albumEle = _gDoc.GetElementById("player_main_pic_img");
+                if (albumEle != null)
+                {
+                    src = albumEle.GetAttribute("src").Trim('/');
+
+                    if (!src.StartsWith("http://"))
+                    {
+                       return "http://" + src;
+                    }
+            }
+                return src;
+            }
+        }
+
+        public bool IsPaused
+        {
+            get
+            {
+                var playeroutterbox = _gDoc.GetElementById("player-outer-box");
+                if (playeroutterbox != null)
+                {
+                    return playeroutterbox.ClassName.Contains("paused");
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
 

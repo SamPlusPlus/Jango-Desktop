@@ -238,6 +238,7 @@
         private Skybound.Gecko.GeckoWebBrowser JangoBrowser;
         private System.Windows.Forms.Timer SongUpdater;
         private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem1;
+        public Track Track;
     }
 }
 

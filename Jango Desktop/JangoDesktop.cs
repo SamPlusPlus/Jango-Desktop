@@ -34,13 +34,15 @@ namespace Jango_Desktop
     {
         UserActivityHook _actHook;
         private String _tempSong = null;
-        private Track _track;
         private bool _starting = true;
-        private bool _PageNeedsParsing = true; //Should be true if it hasn't loaded or has changed
+        private bool _pageNeedsParsing = true; //Should be true if it hasn't loaded or has changed
+        private readonly MiniPlayer _mp;
 
         public JangoDesktop()
         {
             InitializeComponent();
+            _mp = new MiniPlayer(this);
+            _mp.Show();
         }
 
         #region Keyboard Hooks
@@ -75,20 +77,20 @@ namespace Jango_Desktop
         #region Actions
         //Action Calls
 
-        private void NextTrack()
+        public void NextTrack()
         {
             JangoBrowser.Navigate("javascript:void(_jp.ctrls.onSkip());");
 
         }
 
-        private void PlayPause()
+        public void PlayPause()
         {
             JangoBrowser.Navigate("javascript:void(_jp.ctrls.onPlayPause())");
         }
 
-        private void RateSongUp()
+        public void RateSongUp()
         {
-            JangoBrowser.Navigate("javascript:void(document.getElementsByName('content')[0].contentWindow.document.getElementById('player_love').click());");
+            JangoBrowser.Navigate("javascript:void(document.getElementsByName('content')[0].contentWindow.document.getElementById('btn-fav').click());");
             if (Settings.Default.DisplaySongRating)
             {
                 ShowBalloonTip("Love", "=)");
@@ -96,9 +98,9 @@ namespace Jango_Desktop
             SubmitRate();
         }
 
-        private void RateSongDown()
+        public void RateSongDown()
         {
-            JangoBrowser.Navigate("javascript:void(document.getElementsByName('content')[0].contentWindow.document.getElementById('player_hate').click());");
+            JangoBrowser.Navigate("javascript:void(document.getElementsByName('content')[0].contentWindow.document.getElementById('player_ban').click());");
             if (Settings.Default.DisplaySongRating)
             {
                 ShowBalloonTip("Hate", "=(");
@@ -106,16 +108,16 @@ namespace Jango_Desktop
             SubmitRate();
         }
 
+        public void ReloadBrowser()
+        {
+            JangoBrowser.Reload();
+        }
+
         private void SubmitRate()
         {
             JangoBrowser.Navigate("javascript:void(document.getElementsByName('content')[0].contentWindow.document.getElementsByName('commit')[0].click());");
         }
 
-
-        private void ReloadBrowser()
-        {
-            JangoBrowser.Reload();
-        }
         
 
       
@@ -239,18 +241,19 @@ namespace Jango_Desktop
 
         private void CheckSong()
         {
-            if (_track.Song == null) return;
+            if (Track.Song == null) return;
 
-            if (_tempSong != _track.Song)
+            if (_tempSong != Track.Song)
             {
-                _tempSong = _track.Song;
+                Track.TrackLength = 0;
+                _tempSong = Track.Song;
                 ParseSong(Settings.Default.DisplaySongBalloon);
             }
 
-            if (_track.TimeRemaining.EndsWith("0:10"))
+            if (Track.TimeRemaining.EndsWith("0:10"))
                 ParseSong(Settings.Default.DisplaySongBalloonAtEndOfSong);
 
-            string trackSong = _track.ToString();
+            string trackSong = Track.ToString();
 
             _notifyIcon.Text = trackSong.Length > 63 ? trackSong.Substring(0, 62) : trackSong;
         }
@@ -259,7 +262,7 @@ namespace Jango_Desktop
         {
             if (displayBalloonTip)
             {
-                ShowBalloonTip(_track.Song, _track.Artist + " " + _track.TimeRemaining);
+                ShowBalloonTip(Track.Song, Track.Artist + " " + Track.TimeRemaining);
             }
             CopyToClipBoardToolStripMenuItem1.Enabled = true;
 
@@ -287,26 +290,27 @@ namespace Jango_Desktop
 
         private void CopyToClipBoardToolStripMenuItemClick(object sender, EventArgs e)
         {
-            Clipboard.SetText(_track.Song + " " + _track.Artist);
+            Clipboard.SetText(Track.Song + " " + Track.Artist);
         }
 
         private void SongUpdaterTick(object sender, EventArgs e)
         {
-            if(_PageNeedsParsing)
+            if(_pageNeedsParsing)
             {
                 HandlePageChanged();
             }
 
             //Check if we need to display a title change
-            if (_track != null)
+            if (Track != null)
             {
                 CheckSong();
+                _mp.Reload();
             }
         }
 
         private void HandlePageChanged()
         {
-            _track = null;
+            Track = null;
 
             //Reset the track when the page has finished loading, this will be triggered if users launch any links on the page.
             if (JangoBrowser.Window.Frames.Count <= 0) return;
@@ -318,8 +322,8 @@ namespace Jango_Desktop
 
             if (currentEle != null && currentEle.InnerHtml != null)
             {
-                _track = new Track(JangoBrowser.Window.Frames[1].Document);
-                _PageNeedsParsing = false;
+                Track = new Track(JangoBrowser.Window.Frames[1].Document);
+                _pageNeedsParsing = false;
             }
 
             //Submit a vote/rate if need be
@@ -331,7 +335,7 @@ namespace Jango_Desktop
 
         private void JangoBrowser_ProgressChanged(object sender, GeckoProgressEventArgs e)
         {
-            _PageNeedsParsing = true;
+            _pageNeedsParsing = true;
         }
        
     }

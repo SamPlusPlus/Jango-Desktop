@@ -142,6 +142,12 @@
     <Compile Include="KeyCatcher.Designer.cs">
       <DependentUpon>KeyCatcher.cs</DependentUpon>
     </Compile>
+    <Compile Include="MiniPlayer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MiniPlayer.Designer.cs">
+      <DependentUpon>MiniPlayer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -158,24 +164,27 @@
       <DependentUpon>KeyCatcher.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="MiniPlayer.resx">
+      <DependentUpon>MiniPlayer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="SettingsDialog.resx">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -188,9 +197,14 @@
       <DependentUpon>SettingsDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Track.cs" />
+    <Compile Include="Utilities\DragMoveExtensions.cs" />
     <Compile Include="Utilities\UserActivityHook.cs" />
     <Compile Include="Utilities\AESEncryption.cs" />
     <None Include="Resources\arrow_refresh.png" />
+    <None Include="Resources\miniplayerbgtile.png" />
+    <None Include="Resources\expand-arrow-normal.png" />
+    <None Include="Resources\expand-arrow-over.png" />
+    <None Include="Resources\control_pause.png" />
     <Content Include="xulrunner\chrome\classic.manifest" />
     <Content Include="xulrunner\chrome\comm.manifest" />
     <Content Include="xulrunner\chrome\en-US.manifest" />
