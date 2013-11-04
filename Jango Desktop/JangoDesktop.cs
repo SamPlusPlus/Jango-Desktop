@@ -36,7 +36,8 @@ namespace Jango_Desktop
         private String _tempSong = null;
         private Track _track;
         private bool _starting = true;
-        private bool _PageNeedsParsing = true; //Should be true if it hasn't loaded or has changed
+        private bool _pageNeedsParsing = true; //Should be true if it hasn't loaded or has changed
+        private bool _injectedJQuery;
 
         public JangoDesktop()
         {
@@ -88,6 +89,7 @@ namespace Jango_Desktop
 
         private void RateSongUp()
         {
+            //JangoBrowser.Navigate("javascript:void(document.getElementsByName('content')[0].contentWindow.document.getElementById('player_love').click());");
             JangoBrowser.Navigate("javascript:void(document.getElementsByName('content')[0].contentWindow.document.getElementById('player_love').click());");
             if (Settings.Default.DisplaySongRating)
             {
@@ -98,7 +100,13 @@ namespace Jango_Desktop
 
         private void RateSongDown()
         {
-            JangoBrowser.Navigate("javascript:void(document.getElementsByName('content')[0].contentWindow.document.getElementById('player_hate').click());");
+           // MessageBox.Show(
+           //     "javascript:alert($(\"#player_ban:first\", window.parent.frames[\"content\"].document).trigger(\"click\"));");
+            //JangoBrowser.Navigate("javascript:alert($(\"#player_ban\", window.parent.frames[\"content\"].document).attr('onclick', 'alert(\"hi\")'));");
+            JangoBrowser.Navigate("javascript:alert($(\"#player_ban\", window.parent.frames[\"content\"].document)[0].tigger('click'));");
+           // JangoBrowser.Navigate("javascript:alert($(\"#player_ban\", window.parent.frames[\"content\"].document).tigger('mouseup'));");
+          
+           // JangoBrowser.Navigate("javascript:void(document.getElementsByName('content')[0].contentWindow.document.getElementById('player_love').getElementsByTag('button')[0].click());");
             if (Settings.Default.DisplaySongRating)
             {
                 ShowBalloonTip("Hate", "=(");
@@ -292,7 +300,7 @@ namespace Jango_Desktop
 
         private void SongUpdaterTick(object sender, EventArgs e)
         {
-            if(_PageNeedsParsing)
+            if(_pageNeedsParsing)
             {
                 HandlePageChanged();
             }
@@ -311,15 +319,32 @@ namespace Jango_Desktop
             //Reset the track when the page has finished loading, this will be triggered if users launch any links on the page.
             if (JangoBrowser.Window.Frames.Count <= 0) return;
 
+
+
             //Get the frame jango is running in
             var jangoFrame = JangoBrowser.Window.Frames[1].Document;
+
+            if (!_injectedJQuery)
+            {
+                var header = JangoBrowser.Document.GetElementsByTagName("head")[0];
+                var injectedScriptEle = JangoBrowser.Document.CreateElement("script");
+                injectedScriptEle.SetAttribute("src", "http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js");
+                injectedScriptEle.SetAttribute("type", "text/javascript");
+                header.AppendChild(injectedScriptEle);
+//
+//                var injectedFunctions = jangoFrame.CreateElement("script");
+//                injectedFunctions.TextContent =
+//                    "function RateDown() {alert(\"hi\"); $(\"#player_ban\").trigger(\"click\"); alert(\"hi\"); }";
+//                header.AppendChild(injectedFunctions);
+                _injectedJQuery = true;
+            }
 
             var currentEle = jangoFrame.GetElementById("current-song");
 
             if (currentEle != null && currentEle.InnerHtml != null)
             {
                 _track = new Track(JangoBrowser.Window.Frames[1].Document);
-                _PageNeedsParsing = false;
+                _pageNeedsParsing = false;
             }
 
             //Submit a vote/rate if need be
@@ -331,7 +356,7 @@ namespace Jango_Desktop
 
         private void JangoBrowser_ProgressChanged(object sender, GeckoProgressEventArgs e)
         {
-            _PageNeedsParsing = true;
+            _pageNeedsParsing = true;
         }
        
     }
