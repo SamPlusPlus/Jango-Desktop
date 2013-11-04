@@ -37,7 +37,8 @@ namespace Jango_Desktop
         private Track _track;
         private bool _starting = true;
         private bool _pageNeedsParsing = true; //Should be true if it hasn't loaded or has changed
-        private bool _injectedJQuery;
+        private bool _injectedJs;
+        private bool _ratingSent;
 
         public JangoDesktop()
         {
@@ -89,29 +90,23 @@ namespace Jango_Desktop
 
         private void RateSongUp()
         {
-            //JangoBrowser.Navigate("javascript:void(document.getElementsByName('content')[0].contentWindow.document.getElementById('player_love').click());");
-            JangoBrowser.Navigate("javascript:void(document.getElementsByName('content')[0].contentWindow.document.getElementById('player_love').click());");
+            JangoBrowser.Navigate("javascript:void(document.getElementsByName('content')[0].contentWindow.document.getElementById('btn-fav').click());");
             if (Settings.Default.DisplaySongRating)
             {
                 ShowBalloonTip("Love", "=)");
             }
-            SubmitRate();
+            _ratingSent = true;
+           
         }
 
         private void RateSongDown()
         {
-           // MessageBox.Show(
-           //     "javascript:alert($(\"#player_ban:first\", window.parent.frames[\"content\"].document).trigger(\"click\"));");
-            //JangoBrowser.Navigate("javascript:alert($(\"#player_ban\", window.parent.frames[\"content\"].document).attr('onclick', 'alert(\"hi\")'));");
-            JangoBrowser.Navigate("javascript:alert($(\"#player_ban\", window.parent.frames[\"content\"].document)[0].tigger('click'));");
-           // JangoBrowser.Navigate("javascript:alert($(\"#player_ban\", window.parent.frames[\"content\"].document).tigger('mouseup'));");
-          
-           // JangoBrowser.Navigate("javascript:void(document.getElementsByName('content')[0].contentWindow.document.getElementById('player_love').getElementsByTag('button')[0].click());");
+            JangoBrowser.Navigate("javascript:void(document.getElementsByName('content')[0].contentWindow.document.getElementById('player_ban').click());");
             if (Settings.Default.DisplaySongRating)
             {
                 ShowBalloonTip("Hate", "=(");
             }
-            SubmitRate();
+            _ratingSent = true;
         }
 
         private void SubmitRate()
@@ -123,6 +118,7 @@ namespace Jango_Desktop
         private void ReloadBrowser()
         {
             JangoBrowser.Reload();
+            _injectedJs = false;
         }
         
 
@@ -261,6 +257,7 @@ namespace Jango_Desktop
             string trackSong = _track.ToString();
 
             _notifyIcon.Text = trackSong.Length > 63 ? trackSong.Substring(0, 62) : trackSong;
+
         }
 
         private void ParseSong(bool displayBalloonTip)
@@ -310,6 +307,12 @@ namespace Jango_Desktop
             {
                 CheckSong();
             }
+
+            if (_ratingSent)
+            {
+                SubmitRate();
+                _ratingSent = false;
+            }
         }
 
         private void HandlePageChanged()
@@ -324,19 +327,18 @@ namespace Jango_Desktop
             //Get the frame jango is running in
             var jangoFrame = JangoBrowser.Window.Frames[1].Document;
 
-            if (!_injectedJQuery)
+            if (!_injectedJs && jangoFrame.DocumentElement.GetElementsByTagName("body").Count > 0)
             {
-                var header = JangoBrowser.Document.GetElementsByTagName("head")[0];
-                var injectedScriptEle = JangoBrowser.Document.CreateElement("script");
-                injectedScriptEle.SetAttribute("src", "http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js");
-                injectedScriptEle.SetAttribute("type", "text/javascript");
-                header.AppendChild(injectedScriptEle);
-//
-//                var injectedFunctions = jangoFrame.CreateElement("script");
-//                injectedFunctions.TextContent =
-//                    "function RateDown() {alert(\"hi\"); $(\"#player_ban\").trigger(\"click\"); alert(\"hi\"); }";
-//                header.AppendChild(injectedFunctions);
-                _injectedJQuery = true;
+                //We are using an older version of Firefox and the XUL runner so we need to define what the click method is.
+                //TODO: consider upgrading to a newer version of XUL runner, or anotehr browser control. 
+                //It is a shame the built in IE control sucks.
+                _injectedJs = true;
+                var header = jangoFrame.DocumentElement.GetElementsByTagName("body")[0];
+                var injectedFunctions = jangoFrame.CreateElement("script");
+                injectedFunctions.TextContent =
+                    "HTMLElement.prototype.click = function() { var evt = this.ownerDocument.createEvent('MouseEvents'); evt.initMouseEvent('click', true, true, this.ownerDocument.defaultView, 1, 0, 0, 0, 0, false, false, false, false, 0, null); this.dispatchEvent(evt); } ";
+                header.AppendChild(injectedFunctions);
+                
             }
 
             var currentEle = jangoFrame.GetElementById("current-song");
@@ -347,8 +349,8 @@ namespace Jango_Desktop
                 _pageNeedsParsing = false;
             }
 
-            //Submit a vote/rate if need be
-            if (JangoBrowser.Window.Frames[1].Document.GetElementsByName("commit").Count > 0)
+            // Submit a vote/rate if need be
+            if (jangoFrame.GetElementsByName("commit").Count > 0)
             {
                 SubmitRate();
             }
