@@ -16,8 +16,9 @@
     <ApplicationIcon>jango.ico</ApplicationIcon>
     <TargetZone>Custom</TargetZone>
     <SignAssembly>false</SignAssembly>
-    <ManifestCertificateThumbprint>30FBF1B1D2E17B6B934D7BD693C9382D36933296</ManifestCertificateThumbprint>
-    <ManifestKeyFile>SamPlusPlus.pfx</ManifestKeyFile>
+    <ManifestCertificateThumbprint>680229C02E864C65E7553C561FE0C133942CCC0D</ManifestCertificateThumbprint>
+    <ManifestKeyFile>
+    </ManifestKeyFile>
     <GenerateManifests>true</GenerateManifests>
     <SignManifests>false</SignManifests>
     <AssemblyOriginatorKeyFile>
