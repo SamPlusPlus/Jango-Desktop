@@ -36,7 +36,9 @@ namespace Jango_Desktop
         private String _tempSong = null;
         private Track _track;
         private bool _starting = true;
-        private bool _PageNeedsParsing = true; //Should be true if it hasn't loaded or has changed
+        private bool _pageNeedsParsing = true; //Should be true if it hasn't loaded or has changed
+        private bool _injectedJs;
+        private bool _ratingSent;
 
         public JangoDesktop()
         {
@@ -88,22 +90,23 @@ namespace Jango_Desktop
 
         private void RateSongUp()
         {
-            JangoBrowser.Navigate("javascript:void(document.getElementsByName('content')[0].contentWindow.document.getElementById('player_love').click());");
+            JangoBrowser.Navigate("javascript:void(document.getElementsByName('content')[0].contentWindow.document.getElementById('btn-fav').click());");
             if (Settings.Default.DisplaySongRating)
             {
                 ShowBalloonTip("Love", "=)");
             }
-            SubmitRate();
+            _ratingSent = true;
+           
         }
 
         private void RateSongDown()
         {
-            JangoBrowser.Navigate("javascript:void(document.getElementsByName('content')[0].contentWindow.document.getElementById('player_hate').click());");
+            JangoBrowser.Navigate("javascript:void(document.getElementsByName('content')[0].contentWindow.document.getElementById('player_ban').click());");
             if (Settings.Default.DisplaySongRating)
             {
                 ShowBalloonTip("Hate", "=(");
             }
-            SubmitRate();
+            _ratingSent = true;
         }
 
         private void SubmitRate()
@@ -115,6 +118,7 @@ namespace Jango_Desktop
         private void ReloadBrowser()
         {
             JangoBrowser.Reload();
+            _injectedJs = false;
         }
         
 
@@ -253,6 +257,7 @@ namespace Jango_Desktop
             string trackSong = _track.ToString();
 
             _notifyIcon.Text = trackSong.Length > 63 ? trackSong.Substring(0, 62) : trackSong;
+
         }
 
         private void ParseSong(bool displayBalloonTip)
@@ -292,7 +297,7 @@ namespace Jango_Desktop
 
         private void SongUpdaterTick(object sender, EventArgs e)
         {
-            if(_PageNeedsParsing)
+            if(_pageNeedsParsing)
             {
                 HandlePageChanged();
             }
@@ -301,6 +306,12 @@ namespace Jango_Desktop
             if (_track != null)
             {
                 CheckSong();
+            }
+
+            if (_ratingSent)
+            {
+                SubmitRate();
+                _ratingSent = false;
             }
         }
 
@@ -311,19 +322,35 @@ namespace Jango_Desktop
             //Reset the track when the page has finished loading, this will be triggered if users launch any links on the page.
             if (JangoBrowser.Window.Frames.Count <= 0) return;
 
+
+
             //Get the frame jango is running in
             var jangoFrame = JangoBrowser.Window.Frames[1].Document;
+
+            if (!_injectedJs && jangoFrame.DocumentElement.GetElementsByTagName("body").Count > 0)
+            {
+                //We are using an older version of Firefox and the XUL runner so we need to define what the click method is.
+                //TODO: consider upgrading to a newer version of XUL runner, or anotehr browser control. 
+                //It is a shame the built in IE control sucks.
+                _injectedJs = true;
+                var header = jangoFrame.DocumentElement.GetElementsByTagName("body")[0];
+                var injectedFunctions = jangoFrame.CreateElement("script");
+                injectedFunctions.TextContent =
+                    "HTMLElement.prototype.click = function() { var evt = this.ownerDocument.createEvent('MouseEvents'); evt.initMouseEvent('click', true, true, this.ownerDocument.defaultView, 1, 0, 0, 0, 0, false, false, false, false, 0, null); this.dispatchEvent(evt); } ";
+                header.AppendChild(injectedFunctions);
+                
+            }
 
             var currentEle = jangoFrame.GetElementById("current-song");
 
             if (currentEle != null && currentEle.InnerHtml != null)
             {
                 _track = new Track(JangoBrowser.Window.Frames[1].Document);
-                _PageNeedsParsing = false;
+                _pageNeedsParsing = false;
             }
 
-            //Submit a vote/rate if need be
-            if (JangoBrowser.Window.Frames[1].Document.GetElementsByName("commit").Count > 0)
+            // Submit a vote/rate if need be
+            if (jangoFrame.GetElementsByName("commit").Count > 0)
             {
                 SubmitRate();
             }
@@ -331,7 +358,7 @@ namespace Jango_Desktop
 
         private void JangoBrowser_ProgressChanged(object sender, GeckoProgressEventArgs e)
         {
-            _PageNeedsParsing = true;
+            _pageNeedsParsing = true;
         }
        
     }
