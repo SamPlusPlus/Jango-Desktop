@@ -333,11 +333,11 @@ namespace Jango_Desktop
                 //TODO: consider upgrading to a newer version of XUL runner, or anotehr browser control. 
                 //It is a shame the built in IE control sucks.
                 _injectedJs = true;
-                var header = jangoFrame.DocumentElement.GetElementsByTagName("body")[0];
+                var body = jangoFrame.DocumentElement.GetElementsByTagName("body")[0];
                 var injectedFunctions = jangoFrame.CreateElement("script");
                 injectedFunctions.TextContent =
                     "HTMLElement.prototype.click = function() { var evt = this.ownerDocument.createEvent('MouseEvents'); evt.initMouseEvent('click', true, true, this.ownerDocument.defaultView, 1, 0, 0, 0, 0, false, false, false, false, 0, null); this.dispatchEvent(evt); } ";
-                header.AppendChild(injectedFunctions);
+                body.AppendChild(injectedFunctions);
                 
             }
 
